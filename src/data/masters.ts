@@ -1,11 +1,39 @@
 // Анкеты банщиков. Пока здесь только образцы: настоящие анкеты добавляются по одному шаблону.
-// Пармастер (он же пармейстер) только парит. Банщик ведёт баню целиком.
+
+// Пармастер (он же пармейстер) только парит. Банщик делает весь набор банных процедур.
+// Топить печь и убирать баню обычно не работа ни того, ни другого: этим занят персонал бани.
 export type MasterScope = "parenie" | "polnyy";
 
 export const scopeLabels: Record<MasterScope, string> = {
   parenie: "Только парение",
-  polnyy: "Полный спектр банных услуг",
+  polnyy: "Полный спектр банных процедур",
 };
+
+// Список услуг для анкеты. Мастер отмечает, что именно он делает.
+export const serviceGroups = [
+  {
+    title: "Парение",
+    items: {
+      "parenie-klassicheskoe": "Классическое парение",
+      "parenie-individualnoe": "Индивидуальное парение",
+      "parenie-v-4-ruki": "Парение в четыре руки",
+      aromapar: "Аромапар",
+      "parenie-avtorskoe": "Авторские программы парения",
+    },
+  },
+  {
+    title: "Банные процедуры",
+    items: {
+      pomyvka: "Помывка: веничная, лыковая",
+      piling: "Пилинг и скраб",
+      kontrast: "Контрастные процедуры и обливания",
+      kupeli: "Травяные купели",
+    },
+  },
+] as const;
+
+const allServices = Object.assign({}, ...serviceGroups.map((g) => g.items)) as Record<string, string>;
+export const serviceLabel = (key: string) => allServices[key] ?? key;
 
 export type Master = {
   slug: string;
@@ -14,7 +42,7 @@ export type Master = {
   scope: MasterScope;
   city: string | null;
   experienceYears: number | null;
-  styles: string[];
+  services: string[];
   pricePerSession: string | null;
   venueSlug: string | null;
   videoUrl: string | null;
@@ -22,14 +50,14 @@ export type Master = {
   demo: boolean;
 };
 
-const sample = (n: number, scope: MasterScope, styles: string[]): Master => ({
+const sample = (n: number, scope: MasterScope, services: string[]): Master => ({
   slug: `obrazec-ankety-${n}`,
   name: "Имя Фамилия",
   role: scope === "parenie" ? "Пармастер" : "Банщик",
   scope,
   city: null,
   experienceYears: null,
-  styles,
+  services,
   pricePerSession: null,
   venueSlug: n === 1 ? "bannyy-dvor-ochakovo" : null,
   videoUrl: null,
@@ -38,9 +66,9 @@ const sample = (n: number, scope: MasterScope, styles: string[]): Master => ({
 });
 
 export const masters: Master[] = [
-  sample(1, "parenie", ["Классическое парение", "Парение в четыре руки"]),
-  sample(2, "polnyy", ["Классическое парение", "Аромапар"]),
-  sample(3, "polnyy", ["Авторские программы", "Травяные купели"]),
+  sample(1, "parenie", ["parenie-klassicheskoe", "parenie-v-4-ruki", "parenie-avtorskoe"]),
+  sample(2, "polnyy", ["parenie-klassicheskoe", "aromapar", "pomyvka", "piling", "kontrast"]),
+  sample(3, "polnyy", ["parenie-klassicheskoe", "parenie-avtorskoe", "pomyvka", "piling", "kupeli"]),
 ];
 
 export const getMaster = (slug: string) => masters.find((m) => m.slug === slug);

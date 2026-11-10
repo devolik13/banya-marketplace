@@ -32,7 +32,11 @@ export default async function SchoolPage({ params }: Props) {
         { href: `/shkoly-banshchikov/${school.slug}`, label: school.name },
       ]}
     >
-      {school.demo && <DemoBadge />}
+      {school.demo && (
+        <div>
+          <DemoBadge />
+        </div>
+      )}
       <Section title="Основное">
         <Facts
           rows={[

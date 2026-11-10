@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CardLink, DemoBadge, Facts, Grid, JsonLd, PageShell, Section } from "@/components/site/parts";
-import { masters } from "@/data/masters";
+import { masters, serviceLabel } from "@/data/masters";
 import { getVenue, venues } from "@/data/venues";
 import { absoluteUrl } from "@/lib/site";
 
@@ -34,7 +34,11 @@ export default async function VenuePage({ params }: Props) {
         { href: `/bani-na-drovah/${venue.slug}`, label: venue.name },
       ]}
     >
-      {venue.demo && <DemoBadge />}
+      {venue.demo && (
+        <div>
+          <DemoBadge />
+        </div>
+      )}
       <Section title="Основное">
         <Facts
           rows={[
@@ -57,7 +61,7 @@ export default async function VenuePage({ params }: Props) {
         <Section title="Мастера этой бани">
           <Grid>
             {staff.map((m) => (
-              <CardLink key={m.slug} href={`/banshchiki/${m.slug}`} title={m.name} meta={m.role} tags={m.styles} demo={m.demo} />
+              <CardLink key={m.slug} href={`/banshchiki/${m.slug}`} title={m.name} meta={m.role} tags={m.services.slice(0, 3).map(serviceLabel)} demo={m.demo} />
             ))}
           </Grid>
         </Section>

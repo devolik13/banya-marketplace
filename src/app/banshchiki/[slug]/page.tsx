@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DemoBadge, Facts, JsonLd, Notice, PageShell, Section, TextLink } from "@/components/site/parts";
-import { getMaster, masters, scopeLabels } from "@/data/masters";
+import { getMaster, masters, scopeLabels, serviceGroups } from "@/data/masters";
 import { getVenue } from "@/data/venues";
 import { absoluteUrl } from "@/lib/site";
 
@@ -34,7 +34,11 @@ export default async function MasterPage({ params }: Props) {
         { href: `/banshchiki/${master.slug}`, label: master.name },
       ]}
     >
-      {master.demo && <DemoBadge />}
+      {master.demo && (
+        <div>
+          <DemoBadge />
+        </div>
+      )}
       <Section title="О мастере">
         <p className="max-w-3xl">{master.about}</p>
       </Section>
@@ -45,9 +49,29 @@ export default async function MasterPage({ params }: Props) {
             ["Город", master.city],
             ["Стаж", master.experienceYears ? `${master.experienceYears} лет` : null],
             ["Стоимость", master.pricePerSession],
-            ["Стили парения", master.styles.join(", ") || null],
           ]}
         />
+      </Section>
+      <Section title="Услуги">
+        <div className="grid max-w-3xl gap-8 sm:grid-cols-2">
+          {serviceGroups.map((group) => (
+            <div key={group.title}>
+              <h3 className="text-base font-semibold text-foreground">{group.title}</h3>
+              <ul className="mt-3 space-y-2 text-sm">
+                {Object.entries(group.items).map(([key, label]) => {
+                  const has = master.services.includes(key);
+                  return (
+                    <li key={key} className={has ? "text-foreground" : "text-muted-foreground/70"}>
+                      <span aria-hidden="true">{has ? "✓ " : "— "}</span>
+                      {label}
+                      <span className="sr-only">{has ? " (делает)" : " (не делает)"}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </div>
       </Section>
       <Section title="Видео работы">
         {master.videoUrl ? (
