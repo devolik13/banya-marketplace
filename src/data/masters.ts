@@ -30,7 +30,7 @@ const sample = (n: number, role: string, styles: string[]): Master => ({
 export const masters: Master[] = [
   sample(1, "Пармастер", ["Классическое парение", "Парение в четыре руки"]),
   sample(2, "Банщик", ["Классическое парение", "Аромапар"]),
-  sample(3, "Пармейстер", ["Авторские программы", "Травяные купели"]),
+  sample(3, "Пармастер", ["Авторские программы", "Травяные купели"]),
 ];
 
 export const getMaster = (slug: string) => masters.find((m) => m.slug === slug);
