@@ -1,24 +1,23 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { LanguageProvider } from "@/contexts/LanguageContext";
+import { Footer, Header } from "@/components/site/parts";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Банная площадка: банщики, бани на дровах, школы и банные чаны",
+  metadataBase: new URL(site.url),
+  title: { default: `${site.name}: ${site.shortDescription.toLowerCase()}`, template: `%s | ${site.name}` },
   description:
-    "Анкеты банщиков и пармастеров, бани на дровах, школы банного мастерства и банные чаны от производителей.",
-  // Тестовая копия на Vercel не должна попадать в поиск. Убрать перед запуском на боевом домене.
-  robots: { index: false, follow: false },
+    "Каталог бань на дровах, анкеты банщиков и пармастеров, производители банных чанов и школы банного мастерства.",
+  robots: site.indexable ? { index: true, follow: true } : { index: false, follow: false },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru">
-      <body className="antialiased">
-        <LanguageProvider>{children}</LanguageProvider>
+      <body className="flex min-h-screen flex-col antialiased">
+        <Header />
+        <div className="flex-1">{children}</div>
+        <Footer />
       </body>
     </html>
   );
