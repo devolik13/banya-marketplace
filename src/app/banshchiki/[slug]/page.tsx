@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DemoBadge, Facts, JsonLd, Notice, PageShell, Section, TextLink } from "@/components/site/parts";
-import { getMaster, masters } from "@/data/masters";
+import { getMaster, masters, scopeLabels } from "@/data/masters";
 import { getVenue } from "@/data/venues";
 import { absoluteUrl } from "@/lib/site";
 
@@ -41,6 +41,7 @@ export default async function MasterPage({ params }: Props) {
       <Section title="Основное">
         <Facts
           rows={[
+            ["Что делает", scopeLabels[master.scope]],
             ["Город", master.city],
             ["Стаж", master.experienceYears ? `${master.experienceYears} лет` : null],
             ["Стоимость", master.pricePerSession],

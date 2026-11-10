@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CardLink, Grid, Notice, PageShell, Section, TextLink } from "@/components/site/parts";
-import { masters } from "@/data/masters";
+import { masters, scopeLabels } from "@/data/masters";
 
 export const metadata: Metadata = {
   title: "Банщики и пармастера: анкеты с ценами и видео",
@@ -18,6 +18,12 @@ export default function MastersPage() {
       <Notice>
         Пока здесь образцы анкет. Настоящие анкеты появятся первыми при наполнении сайта.
       </Notice>
+      <Section title="Чем банщик отличается от пармастера">
+        <p className="max-w-3xl">
+          Пармастер, или пармейстер, занимается только парением. Банщик берёт на себя баню целиком,
+          парение лишь часть его работы. В каждой анкете указано, что именно делает мастер.
+        </p>
+      </Section>
       <Section title="Мастера">
         <Grid>
           {masters.map((m) => (
@@ -25,7 +31,7 @@ export default function MastersPage() {
               key={m.slug}
               href={`/banshchiki/${m.slug}`}
               title={m.name}
-              meta={m.role}
+              meta={`${m.role} · ${scopeLabels[m.scope].toLowerCase()}`}
               text={m.about}
               tags={m.styles}
               demo={m.demo}
