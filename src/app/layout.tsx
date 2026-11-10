@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.name}: ${site.shortDescription.toLowerCase()}`, template: `%s | ${site.name}` },
   description:
-    "Каталог бань на дровах, анкеты банщиков и пармастеров, производители банных чанов и школы банного мастерства.",
+    "Каталог бань на дровах, анкеты банщиков, пармастеров и пармейстеров, производители банных чанов и школы банного мастерства.",
   robots: site.indexable ? { index: true, follow: true } : { index: false, follow: false },
 };
 
