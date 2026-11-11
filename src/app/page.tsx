@@ -25,7 +25,7 @@ const sections = [
     href: "/bannye-tovary",
     icon: ShoppingBag,
     title: "Банные товары",
-    text: "Поставщики веников, халатов, шапок и трав. Розница и опт.",
+    text: "Поставщики веников, шапок, килтов и трав. Розница и опт.",
   },
   {
     href: "/shkoly-banshchikov",

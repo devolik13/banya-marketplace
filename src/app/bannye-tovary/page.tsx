@@ -9,9 +9,9 @@ import { type GoodsCategoryKey, goodsCategoryList, suppliers } from "@/data/supp
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Банные товары: веники, шапки, халаты, травы",
+  title: "Банные товары: веники, шапки, килты, травы",
   description:
-    "Поставщики банных товаров: веники, халаты и текстиль, шапки и рукавицы, травы и масла, посуда. В розницу и оптом.",
+    "Поставщики банных товаров: веники, шапки и рукавицы, килты и халаты, травы и масла, посуда. В розницу и оптом.",
 };
 
 const icons: Record<GoodsCategoryKey, typeof Hand> = {
@@ -25,7 +25,7 @@ const icons: Record<GoodsCategoryKey, typeof Hand> = {
 export default function GoodsPage() {
   return (
     <PageShell
-      title="Банные товары: веники, шапки, халаты, травы"
+      title="Банные товары: веники, шапки, килты, травы"
       lead="Поставщики банных принадлежностей в одном месте. Для тех, кто покупает для себя, и для бань, которым нужен опт."
       crumbs={[{ href: "/bannye-tovary", label: "Банные товары" }]}
     >
