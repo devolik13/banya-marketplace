@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CardLink, DemoBadge, Facts, Grid, JsonLd, PageShell, Section } from "@/components/site/parts";
-import { masters, serviceLabel } from "@/data/masters";
+import { Cover, DemoBadge, Facts, Grid, JsonLd, Notice, PageShell, Panel, Section, Tags } from "@/components/site/parts";
+import { MasterCard } from "@/components/site/master-card";
+import { masters } from "@/data/masters";
 import { getVenue, venues } from "@/data/venues";
 import { absoluteUrl } from "@/lib/site";
 
@@ -33,39 +34,50 @@ export default async function VenuePage({ params }: Props) {
         { href: "/bani-na-drovah", label: "Бани на дровах" },
         { href: `/bani-na-drovah/${venue.slug}`, label: venue.name },
       ]}
+      aside={venue.demo ? <DemoBadge /> : undefined}
     >
-      {venue.demo && (
-        <div>
-          <DemoBadge />
+      <div className="grid gap-10 lg:grid-cols-[1fr_20rem]">
+        <div className="space-y-8">
+          <Cover src={venue.image} alt={venue.name} kind="venue" className="rounded-xl" />
+          {!venue.image && <Notice>Здесь будут фотографии бани: парная, сруб, бассейн, купель.</Notice>}
+          <div>
+            <h2 className="mb-4 text-2xl">Что есть</h2>
+            <Tags items={venue.features} />
+          </div>
         </div>
-      )}
-      <Section title="Основное">
-        <Facts
-          rows={[
-            ["Город", venue.city],
-            ["Адрес", venue.address],
-            ["Срубов", venue.cabins ? String(venue.cabins) : null],
-            ["Режим работы", venue.hours],
-            ["Сайт", venue.site],
-          ]}
-        />
-      </Section>
-      <Section title="Что есть">
-        <ul className="flex flex-wrap gap-2">
-          {venue.features.map((f) => (
-            <li key={f} className="rounded-full border border-border/30 bg-card px-3 py-1 text-sm">{f}</li>
-          ))}
-        </ul>
-      </Section>
+        <aside className="lg:sticky lg:top-24 lg:self-start">
+          <Panel title="Основное">
+            <Facts
+              rows={[
+                ["Город", venue.city],
+                ["Адрес", venue.address],
+                ["Срубов", venue.cabins ? String(venue.cabins) : null],
+                ["Режим работы", venue.hours],
+              ]}
+            />
+            {venue.site && (
+              <a
+                href={venue.site}
+                rel="noopener"
+                className="mt-5 block rounded-lg bg-primary px-5 py-3 text-center text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+              >
+                Перейти на сайт бани
+              </a>
+            )}
+          </Panel>
+        </aside>
+      </div>
+
       {staff.length > 0 && (
         <Section title="Мастера этой бани">
           <Grid>
             {staff.map((m) => (
-              <CardLink key={m.slug} href={`/banshchiki/${m.slug}`} title={m.name} meta={m.role} tags={m.services.slice(0, 3).map(serviceLabel)} demo={m.demo} />
+              <MasterCard key={m.slug} master={m} />
             ))}
           </Grid>
         </Section>
       )}
+
       {!venue.demo && (
         <JsonLd
           data={{

@@ -9,20 +9,23 @@ export type Venue = {
   site: string | null;
   cabins: number | null;
   hours: string | null;
+  image: string | null;
   summary: string;
   features: string[];
   tags: VenueTag[];
   demo: boolean;
 };
 
-export const venueTags: Record<VenueTag, { slug: string; title: string; lead: string }> = {
+export const venueTags: Record<VenueTag, { slug: string; short: string; title: string; lead: string }> = {
   kupel: {
     slug: "s-chanom",
+    short: "С чаном или купелью",
     title: "Бани на дровах с чаном или купелью",
     lead: "Заведения, где после парной есть банный чан или купель.",
   },
   basseyn: {
     slug: "s-basseynom",
+    short: "С бассейном",
     title: "Бани на дровах с бассейном",
     lead: "Заведения, где в срубе или на территории есть бассейн.",
   },
@@ -37,6 +40,7 @@ export const venues: Venue[] = [
     site: "https://banniy-dvor.ru/ochakovo",
     cabins: 11,
     hours: "Круглосуточно",
+    image: null,
     summary: "Баня на дровах в отдельных срубах. Сруб снимает одна компания целиком.",
     features: ["Отдельные срубы", "Бассейн", "Купели", "Пармастера", "Кухня"],
     tags: ["kupel", "basseyn"],
@@ -50,6 +54,7 @@ export const venues: Venue[] = [
     site: null,
     cabins: null,
     hours: null,
+    image: null,
     summary: "Здесь будет короткое описание: что за баня, для каких компаний, чем отличается.",
     features: ["Печь на дровах", "Купель"],
     tags: ["kupel"],
@@ -63,6 +68,7 @@ export const venues: Venue[] = [
     site: null,
     cabins: null,
     hours: null,
+    image: null,
     summary: "Здесь будет короткое описание: что за баня, для каких компаний, чем отличается.",
     features: ["Печь на дровах", "Бассейн"],
     tags: ["basseyn"],

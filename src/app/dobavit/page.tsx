@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Notice, PageShell, Section } from "@/components/site/parts";
+import { Notice, PageShell, Panel } from "@/components/site/parts";
 
 export const metadata: Metadata = {
   title: "Как попасть в каталог",
@@ -20,11 +20,13 @@ export default function AddPage() {
       lead="Размещение бесплатное. Ниже написано, что понадобится для карточки."
       crumbs={[{ href: "/dobavit", label: "Как попасть в каталог" }]}
     >
-      {groups.map((g) => (
-        <Section key={g.title} title={g.title}>
-          <p className="max-w-3xl">{g.text}</p>
-        </Section>
-      ))}
+      <div className="grid gap-6 sm:grid-cols-2">
+        {groups.map((g) => (
+          <Panel key={g.title} title={g.title}>
+            <p className="text-sm text-muted-foreground">{g.text}</p>
+          </Panel>
+        ))}
+      </div>
       <Notice>Контакты для заявок появятся перед запуском сайта.</Notice>
     </PageShell>
   );

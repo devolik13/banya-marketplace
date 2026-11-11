@@ -1,4 +1,4 @@
-import { CardLink, Grid, JsonLd } from "@/components/site/parts";
+import { CoverCard, Grid, JsonLd } from "@/components/site/parts";
 import type { Venue } from "@/data/venues";
 import { absoluteUrl } from "@/lib/site";
 
@@ -8,13 +8,15 @@ export function VenueList({ items }: { items: Venue[] }) {
     <>
       <Grid>
         {items.map((v) => (
-          <CardLink
+          <CoverCard
             key={v.slug}
             href={`/bani-na-drovah/${v.slug}`}
             title={v.name}
             meta={[v.city, v.address].filter(Boolean).join(", ")}
             text={v.summary}
             tags={v.features}
+            image={v.image}
+            kind="venue"
             demo={v.demo}
           />
         ))}

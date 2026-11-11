@@ -47,6 +47,7 @@ export type Master = {
   services: string[];
   pricePerSession: string | null;
   venueSlug: string | null;
+  photo: string | null;
   videoUrl: string | null;
   about: string;
   demo: boolean;
@@ -62,6 +63,7 @@ const sample = (n: number, scope: MasterScope, services: string[]): Master => ({
   services,
   pricePerSession: null,
   venueSlug: n === 1 ? "bannyy-dvor-ochakovo" : null,
+  photo: null,
   videoUrl: null,
   about: "Здесь мастер рассказывает о себе: где учился, как парит, с кем работает.",
   demo: true,

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { PageShell, Section, TextLink } from "@/components/site/parts";
+import Link from "next/link";
+import { PageShell, Section } from "@/components/site/parts";
 import { VenueList } from "@/components/site/venue-list";
 import { venues, venueTags } from "@/data/venues";
 
@@ -16,16 +17,19 @@ export default function VenuesPage() {
       lead="Только бани с дровяной печью. Сауны и электрические парные в каталог не входят."
       crumbs={[{ href: "/bani-na-drovah", label: "Бани на дровах" }]}
     >
-      <Section title="Подборки">
-        <ul className="flex flex-wrap gap-x-8 gap-y-2">
+      <Section title="Все бани">
+        <ul className="mb-7 flex flex-wrap gap-2">
           {Object.values(venueTags).map((t) => (
             <li key={t.slug}>
-              <TextLink href={`/bani-na-drovah/${t.slug}`}>{t.title}</TextLink>
+              <Link
+                href={`/bani-na-drovah/${t.slug}`}
+                className="inline-block rounded-full border border-border bg-card px-4 py-2 text-sm hover:border-primary hover:text-primary"
+              >
+                {t.short}
+              </Link>
             </li>
           ))}
         </ul>
-      </Section>
-      <Section title="Все бани">
         <VenueList items={venues} />
       </Section>
     </PageShell>

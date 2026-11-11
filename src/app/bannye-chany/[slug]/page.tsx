@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Facts, Notice, PageShell, Section } from "@/components/site/parts";
+import { ButtonLink, Cover, Facts, Notice, PageShell, Panel, Section } from "@/components/site/parts";
 import { getTubBrand, getTubGuide, tubBrands, tubGuides } from "@/data/tubs";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -37,9 +37,12 @@ export default async function TubPage({ params }: Props) {
         crumbs={[section, { href: `/bannye-chany/${guide.slug}`, label: guide.title }]}
       >
         <Section title="О чём статья">
-          <ol className="max-w-3xl list-decimal space-y-2 pl-5">
-            {guide.outline.map((item) => (
-              <li key={item}>{item}</li>
+          <ol className="max-w-3xl divide-y divide-border rounded-xl border border-border bg-card">
+            {guide.outline.map((item, i) => (
+              <li key={item} className="flex gap-4 px-5 py-4">
+                <span className="font-semibold text-primary">{String(i + 1).padStart(2, "0")}</span>
+                <span>{item}</span>
+              </li>
             ))}
           </ol>
         </Section>
@@ -56,18 +59,28 @@ export default async function TubPage({ params }: Props) {
       lead={brand.summary ?? "Производитель банных чанов."}
       crumbs={[section, { href: `/bannye-chany/${brand.slug}`, label: brand.name }]}
     >
-      <Section title="Основное">
-        <Facts
-          rows={[
-            ["Регион", brand.region],
-            ["Цены", brand.priceFrom],
-            ["Сайт", brand.site],
-          ]}
-        />
-      </Section>
-      <Notice>
-        Данные о производителе уточняются. На странице будут только проверенные факты с указанием даты.
-      </Notice>
+      <div className="grid gap-10 lg:grid-cols-[1fr_20rem]">
+        <div className="space-y-8">
+          <Cover src={brand.image} alt={brand.name} kind="tub" className="rounded-xl" />
+          <Notice>
+            Данные о производителе уточняются. На странице будут только проверенные факты с указанием даты.
+          </Notice>
+        </div>
+        <aside className="lg:sticky lg:top-24 lg:self-start">
+          <Panel title="Основное">
+            <Facts
+              rows={[
+                ["Регион", brand.region],
+                ["Цены", brand.priceFrom],
+                ["Сайт", brand.site],
+              ]}
+            />
+            <div className="mt-5">
+              <ButtonLink href="/bannye-chany#zayavka">Оставить заявку</ButtonLink>
+            </div>
+          </Panel>
+        </aside>
+      </div>
     </PageShell>
   );
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Notice, PageShell, Section } from "@/components/site/parts";
+import { Notice, PageShell, Prose, Section } from "@/components/site/parts";
 
 export const metadata: Metadata = {
   title: "О проекте",
@@ -14,7 +14,7 @@ export default function AboutPage() {
       crumbs={[{ href: "/o-proekte", label: "О проекте" }]}
     >
       <Section title="Что попадает в каталог бань">
-        <ul className="max-w-3xl list-disc space-y-2 pl-5">
+        <ul className="max-w-3xl list-disc space-y-2 pl-5 text-[1.05rem]">
           <li>Печь на дровах. Сауны и электрические парные не подходят.</li>
           <li>Сруб или парная снимается одной компанией целиком.</li>
           <li>Есть бассейн, купель или банный чан.</li>
@@ -28,11 +28,13 @@ export default function AboutPage() {
         </Notice>
       </Section>
       <Section title="Как мы пишем о производителях и школах">
-        <p className="max-w-3xl">
+        <Prose>
+          <p>
           Мы пишем только то, что можно проверить: цены и характеристики берём с сайтов производителей и
           указываем дату. Если площадка получает вознаграждение от производителя, это будет прямо написано
           на странице.
-        </p>
+          </p>
+        </Prose>
       </Section>
     </PageShell>
   );

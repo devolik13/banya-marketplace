@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CardLink, Grid, Notice, PageShell, Section } from "@/components/site/parts";
+import { CoverCard, Grid, Notice, PageShell, Section } from "@/components/site/parts";
 import { schools } from "@/data/schools";
 
 export const metadata: Metadata = {
@@ -15,16 +15,20 @@ export default function SchoolsPage() {
       lead="Школы и курсы для будущих банщиков и пармейстеров в одном месте. Программы, сроки и стоимость рядом, чтобы можно было сравнить."
       crumbs={[{ href: "/shkoly-banshchikov", label: "Школы банщиков" }]}
     >
-      <Notice>Пока здесь образцы карточек. Школы добавляются после согласования с ними.</Notice>
       <Section title="Школы">
+        <div className="mb-6">
+          <Notice>Пока здесь образцы карточек. Школы добавляются после согласования с ними.</Notice>
+        </div>
         <Grid>
           {schools.map((s) => (
-            <CardLink
+            <CoverCard
               key={s.slug}
               href={`/shkoly-banshchikov/${s.slug}`}
               title={s.name}
-              meta={s.city ?? undefined}
+              meta={s.city}
               text={s.summary}
+              image={s.image}
+              kind="school"
               demo={s.demo}
             />
           ))}

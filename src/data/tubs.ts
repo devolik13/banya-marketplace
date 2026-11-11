@@ -6,6 +6,7 @@ export type TubBrand = {
   region: string | null;
   site: string | null;
   priceFrom: string | null;
+  image: string | null;
   summary: string | null;
 };
 
@@ -15,6 +16,7 @@ const brand = (slug: string, name: string): TubBrand => ({
   region: null,
   site: null,
   priceFrom: null,
+  image: null,
   summary: null,
 });
 

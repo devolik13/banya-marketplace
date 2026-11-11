@@ -1,219 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import 'tailwindcss';
-@import "tw-animate-css";
-@custom-variant dark (&:is(.dark *));
+@import "tailwindcss";
+@import "@fontsource-variable/inter/wght.css";
 
+/* Палитра: тёплый светлый фон, тёмное «дерево» для крупных блоков, янтарный акцент. */
 @theme {
-  --color-background: #FAFAF9;
-  --color-foreground: #1F2937;
+  --color-background: #faf7f2;
+  --color-foreground: #1f1a17;
 
-  --color-card: #FEF3C7;
-  --color-card-foreground: #1F2937;
+  --color-card: #ffffff;
+  --color-muted: #f1ece4;
+  --color-muted-foreground: #6b625a;
+  --color-border: #e4dbcf;
 
-  --color-popover: #FEF3C7;
-  --color-popover-foreground: #1F2937;
+  --color-primary: #b45f06;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #fbebd0;
 
-  --color-primary: #D97706;
-  --color-primary-foreground: #FAFAF9;
+  --color-ink: #1c1410;
+  --color-ink-soft: #2a1f18;
+  --color-ink-foreground: #f6efe6;
+  --color-gold: #e0a458;
 
-  --color-secondary: #78716C;
-  --color-secondary-foreground: #FAFAF9;
-
-  --color-muted: #F3F4F6; /* Adjusted for better contrast with Warm Amber branding */
-  --color-muted-foreground: #78716C;
-
-  --color-accent: #FEF3C7;
-  --color-accent-foreground: #1F2937;
-
-  --color-destructive: #EF4444;
-  --color-destructive-foreground: #FAFAF9;
-
-  --color-border: #78716C;
-  --color-input: #FAFAF9;
-  --color-ring: #D97706;
-
-  --color-chart-1: #e67e22;
-  --color-chart-2: #2d8659;
-  --color-chart-3: #1e3a5f;
-  --color-chart-4: #f1c40f;
-  --color-chart-5: #e74c3c;
-
-  --color-sidebar: #1F2937; /* Rich Charcoal for dark sidebar */
-  --color-sidebar-foreground: #FAFAF9;
-  --color-sidebar-primary: #D97706;
-  --color-sidebar-primary-foreground: #FAFAF9;
-  --color-sidebar-accent: #374151; /* Slightly lighter charcoal for accents */
-  --color-sidebar-accent-foreground: #FAFAF9;
-  --color-sidebar-border: #4B5563;
-  --color-sidebar-ring: #D97706;
-
-  --radius-lg: 0.5rem;
-  --radius-md: calc(0.5rem - 2px);
-  --radius-sm: calc(0.5rem - 4px);
-
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
-  }
-
-  --font-body: "Inter", sans-serif;
-  --font-heading: "Inter", sans-serif;
-}
-
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-border);
-  }
-}
-
-@layer utilities {
-  body {
-    font-family: var(--font-body);
-  }
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 @layer base {
-  :root {
-    --background: var(--color-background);
-    --foreground: var(--color-foreground);
-    --card: var(--color-card);
-    --card-foreground: var(--color-card-foreground);
-    --popover: var(--color-popover);
-    --popover-foreground: var(--color-popover-foreground);
-    --primary: var(--color-primary);
-    --primary-foreground: var(--color-primary-foreground);
-    --secondary: var(--color-secondary);
-    --secondary-foreground: var(--color-secondary-foreground);
-    --muted: var(--color-muted);
-    --muted-foreground: var(--color-muted-foreground);
-    --accent: var(--color-accent);
-    --accent-foreground: var(--color-accent-foreground);
-    --destructive: var(--color-destructive);
-    --destructive-foreground: var(--color-destructive-foreground);
-    --border: var(--color-border);
-    --input: var(--color-input);
-    --ring: var(--color-ring);
-    --chart-1: var(--color-chart-1);
-    --chart-2: var(--color-chart-2);
-    --chart-3: var(--color-chart-3);
-    --chart-4: var(--color-chart-4);
-    --chart-5: var(--color-chart-5);
-    --radius: var(--radius-lg);
-    --sidebar-background: var(--color-sidebar);
-    --sidebar-foreground: var(--color-sidebar-foreground);
-    --sidebar-primary: var(--color-sidebar-primary);
-    --sidebar-primary-foreground: var(--color-sidebar-primary-foreground);
-    --sidebar-accent: var(--color-sidebar-accent);
-    --sidebar-accent-foreground: var(--color-sidebar-accent-foreground);
-    --sidebar-border: var(--color-sidebar-border);
-    --sidebar-ring: var(--color-sidebar-ring);
-  }
-
-  .dark {
-    --background: #1F2937; /* Rich Charcoal for dark background */
-    --foreground: #FAFAF9; /* Off-white for dark foreground */
-    --card: #0F172A; /* Slightly darker charcoal for card in dark mode */
-    --card-foreground: #FAFAF9;
-    --popover: #0F172A;
-    --popover-foreground: #FAFAF9;
-    --primary: #D97706; /* Warm Amber remains primary */
-    --primary-foreground: #FAFAF9;
-    --secondary: #78716C; /* Deep Wood Brown remains secondary */
-    --secondary-foreground: #FAFAF9;
-    --muted: #374151; /* Darker muted for dark mode */
-    --muted-foreground: #9CA3AF;
-    --accent: #262626; /* Darker accent for dark mode */
-    --accent-foreground: #FAFAF9;
-    --destructive: #7F1D1D;
-    --destructive-foreground: #FAFAF9;
-    --border: #4B5563; /* Darker border for dark mode */
-    --input: #1F2937; /* Rich Charcoal input in dark mode */
-    --ring: #D97706;
-    --chart-1: #3b82f6;
-    --chart-2: #10b981;
-    --chart-3: #f59e0b;
-    --chart-4: #8b5cf6;
-    --chart-5: #ef4444;
-    --sidebar-background: #0F172A;
-    --sidebar-foreground: #FAFAF9;
-    --sidebar-primary: #D97706;
-    --sidebar-primary-foreground: #FAFAF9;
-    --sidebar-accent: #1F2937;
-    --sidebar-accent-foreground: #FAFAF9;
-    --sidebar-border: #4B5563;
-    --sidebar-ring: #D97706;
-  }
-}
-
-@layer base {
-  * {
-    border-color: var(--border);
+  html {
+    scroll-behavior: smooth;
   }
   body {
-    background-color: var(--background);
-    color: var(--foreground);
-    line-height: 1.5;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    line-height: 1.55;
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    color: var(--foreground);
-    line-height: 1.2;
-    margin-bottom: 0.5em;
-  }
-  h1 {
-    font-size: 2.5rem; /* Larger for main titles */
-  }
-  h2 {
-    font-size: 2rem;
-  }
-  h3 {
-    font-size: 1.75rem;
-  }
+  h1,
+  h2,
+  h3,
   h4 {
-    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
   }
-  h5 {
-    font-size: 1.25rem;
-  }
-  h6 {
-    font-size: 1rem;
-  }
-  p {
-    font-size: 1rem;
-    margin-bottom: 1em;
-  }
-  a {
-    color: var(--primary);
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }

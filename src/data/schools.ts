@@ -6,6 +6,7 @@ export type School = {
   duration: string | null;
   price: string | null;
   site: string | null;
+  image: string | null;
   summary: string;
   demo: boolean;
 };
@@ -17,6 +18,7 @@ const sample = (n: number): School => ({
   duration: null,
   price: null,
   site: null,
+  image: null,
   summary: "Здесь будет описание программы: чему учат, сколько практики, какой документ выдают.",
   demo: true,
 });

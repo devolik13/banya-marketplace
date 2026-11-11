@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { DemoBadge, Facts, JsonLd, PageShell, Section } from "@/components/site/parts";
+import { Cover, DemoBadge, Facts, JsonLd, Notice, PageShell, Panel } from "@/components/site/parts";
 import { getSchool, schools } from "@/data/schools";
 import { absoluteUrl } from "@/lib/site";
 
@@ -31,22 +31,26 @@ export default async function SchoolPage({ params }: Props) {
         { href: "/shkoly-banshchikov", label: "Школы банщиков" },
         { href: `/shkoly-banshchikov/${school.slug}`, label: school.name },
       ]}
+      aside={school.demo ? <DemoBadge /> : undefined}
     >
-      {school.demo && (
-        <div>
-          <DemoBadge />
+      <div className="grid gap-10 lg:grid-cols-[1fr_20rem]">
+        <div className="space-y-8">
+          <Cover src={school.image} alt={school.name} kind="school" className="rounded-xl" />
+          <Notice>Здесь будет презентация школы: программа, преподаватели, как проходит практика.</Notice>
         </div>
-      )}
-      <Section title="Основное">
-        <Facts
-          rows={[
-            ["Город", school.city],
-            ["Длительность", school.duration],
-            ["Стоимость", school.price],
-            ["Сайт", school.site],
-          ]}
-        />
-      </Section>
+        <aside className="lg:sticky lg:top-24 lg:self-start">
+          <Panel title="Основное">
+            <Facts
+              rows={[
+                ["Город", school.city],
+                ["Длительность", school.duration],
+                ["Стоимость", school.price],
+                ["Сайт", school.site],
+              ]}
+            />
+          </Panel>
+        </aside>
+      </div>
       {!school.demo && (
         <JsonLd
           data={{

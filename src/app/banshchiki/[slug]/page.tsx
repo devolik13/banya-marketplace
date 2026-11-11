@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { DemoBadge, Facts, JsonLd, Notice, PageShell, Section, TextLink } from "@/components/site/parts";
+import { Check, Minus, Play } from "lucide-react";
+import { Avatar, DemoBadge, Facts, JsonLd, Notice, PageShell, Panel, Prose, Section, TextLink } from "@/components/site/parts";
 import { getMaster, masters, scopeLabels, serviceGroups } from "@/data/masters";
 import { getVenue } from "@/data/venues";
 import { absoluteUrl } from "@/lib/site";
@@ -28,63 +29,92 @@ export default async function MasterPage({ params }: Props) {
   return (
     <PageShell
       title={master.name}
-      lead={master.role}
+      lead={`${master.role}. ${scopeLabels[master.scope]}.`}
       crumbs={[
         { href: "/banshchiki", label: "Банщики" },
         { href: `/banshchiki/${master.slug}`, label: master.name },
       ]}
+      aside={master.demo ? <DemoBadge /> : undefined}
     >
-      {master.demo && (
-        <div>
-          <DemoBadge />
-        </div>
-      )}
-      <Section title="О мастере">
-        <p className="max-w-3xl">{master.about}</p>
-      </Section>
-      <Section title="Основное">
-        <Facts
-          rows={[
-            ["Что делает", scopeLabels[master.scope]],
-            ["Город", master.city],
-            ["Стаж", master.experienceYears ? `${master.experienceYears} лет` : null],
-            ["Стоимость", master.pricePerSession],
-          ]}
-        />
-      </Section>
-      <Section title="Услуги">
-        <div className="grid max-w-3xl gap-8 sm:grid-cols-2">
-          {serviceGroups.map((group) => (
-            <div key={group.title}>
-              <h3 className="text-base font-semibold text-foreground">{group.title}</h3>
-              <ul className="mt-3 space-y-2 text-sm">
-                {Object.entries(group.items).map(([key, label]) => {
-                  const has = master.services.includes(key);
-                  return (
-                    <li key={key} className={has ? "text-foreground" : "text-muted-foreground/70"}>
-                      <span aria-hidden="true">{has ? "✓ " : "— "}</span>
-                      {label}
-                      <span className="sr-only">{has ? " (делает)" : " (не делает)"}</span>
-                    </li>
-                  );
-                })}
-              </ul>
+      <div className="grid gap-10 lg:grid-cols-[20rem_1fr]">
+        <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <Panel>
+            <div className="flex flex-col items-center text-center">
+              <Avatar name={master.name} src={master.photo} size="lg" />
+              <p className="mt-4 text-lg font-semibold">{master.name}</p>
+              <p className="text-sm text-muted-foreground">{master.role}</p>
             </div>
-          ))}
+            <div className="mt-6">
+              <Facts
+                rows={[
+                  ["Город", master.city],
+                  ["Стаж", master.experienceYears ? `${master.experienceYears} лет` : null],
+                  ["Стоимость", master.pricePerSession],
+                ]}
+              />
+            </div>
+          </Panel>
+          {venue && (
+            <Panel title="Где работает">
+              <TextLink href={`/bani-na-drovah/${venue.slug}`}>{venue.name}</TextLink>
+              <p className="mt-1 text-sm text-muted-foreground">{[venue.city, venue.address].filter(Boolean).join(", ")}</p>
+            </Panel>
+          )}
+        </aside>
+
+        <div className="space-y-14">
+          <Section title="О мастере">
+            <Prose>
+              <p>{master.about}</p>
+            </Prose>
+          </Section>
+
+          <Section title="Услуги">
+            <div className="grid gap-6 sm:grid-cols-2">
+              {serviceGroups.map((group) => (
+                <Panel key={group.title} title={group.title}>
+                  <ul className="space-y-2.5 text-sm">
+                    {Object.entries(group.items).map(([key, label]) => {
+                      const has = master.services.includes(key);
+                      return (
+                        <li key={key} className={`flex items-start gap-2.5 ${has ? "" : "text-muted-foreground/60"}`}>
+                          {has ? (
+                            <Check className="mt-0.5 size-4 shrink-0 text-primary" strokeWidth={3} aria-hidden="true" />
+                          ) : (
+                            <Minus className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+                          )}
+                          <span>
+                            {label}
+                            <span className="sr-only">{has ? " (делает)" : " (не делает)"}</span>
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Panel>
+              ))}
+            </div>
+          </Section>
+
+          <Section title="Видео работы">
+            {master.videoUrl ? (
+              <TextLink href={master.videoUrl}>Смотреть видео</TextLink>
+            ) : (
+              <div className="grid aspect-video place-items-center rounded-xl bg-gradient-to-br from-ink-soft to-ink text-center text-ink-foreground/70">
+                <div>
+                  <span className="mx-auto grid size-16 place-items-center rounded-full bg-gold/90 text-ink">
+                    <Play className="size-7 translate-x-0.5" aria-hidden="true" />
+                  </span>
+                  <p className="mt-4 text-sm">Здесь будет видео парения. По нему гость выбирает мастера.</p>
+                </div>
+              </div>
+            )}
+          </Section>
+
+          {master.demo && <Notice>Это образец анкеты. Настоящие анкеты заполняются по такому же шаблону.</Notice>}
         </div>
-      </Section>
-      <Section title="Видео работы">
-        {master.videoUrl ? (
-          <TextLink href={master.videoUrl}>Смотреть видео</TextLink>
-        ) : (
-          <Notice>Здесь будет видео парения. По нему гость выбирает мастера.</Notice>
-        )}
-      </Section>
-      {venue && (
-        <Section title="Где работает">
-          <TextLink href={`/bani-na-drovah/${venue.slug}`}>{venue.name}</TextLink>
-        </Section>
-      )}
+      </div>
+
       {!master.demo && (
         <JsonLd
           data={{
