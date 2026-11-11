@@ -9,7 +9,29 @@ export const goodsCategories = {
     slug: "veniki",
     name: "Веники",
     title: "Веники для бани: где купить в розницу и оптом",
-    lead: "Поставщики банных веников: дубовые, берёзовые, пихтовые и другие. Для себя и для бань, которым нужен опт.",
+    lead: "Поставщики банных веников: дубовые, берёзовые, пихтовые и ароматные из трав. Для себя и для бань, которым нужен опт.",
+    // Гид со слов практика. Все виды веников описаны на одной странице, отдельных страниц под каждый вид пока нет.
+    guide: {
+      title: "Какие веники берут для бани",
+      paragraphs: [
+        "На парение компании от одного до трёх человек обычно уходит два веника, дубовых или берёзовых.",
+      ],
+      sections: [
+        { title: "Дубовый веник", text: "Самый ходовой: дубовыми вениками парят чаще всего." },
+        {
+          title: "Берёзовый веник",
+          text: "На втором месте после дубового. Берёзовым веником иногда накрывают голову.",
+        },
+        {
+          title: "Пихтовый веник",
+          text: "Нужен для аромата, берут его нечасто. Если берут, то пихтовыми вениками выстилают полок для парения, и на это уходит в среднем от 12 до 20 штук за раз.",
+        },
+        {
+          title: "Ароматные веники из трав",
+          text: "Отдельная группа: полынь, донник, мята и другие травы.",
+        },
+      ],
+    },
   },
   shapki: {
     slug: "shapki-i-rukavitsy",
@@ -47,7 +69,11 @@ export const goodsCategories = {
 } as const;
 
 export type GoodsCategoryKey = keyof typeof goodsCategories;
-export type GoodsGuide = { title: string; paragraphs: readonly string[] };
+export type GoodsGuide = {
+  title: string;
+  paragraphs: readonly string[];
+  sections?: readonly { title: string; text: string }[];
+};
 export type GoodsCategory = { key: GoodsCategoryKey; slug: string; name: string; title: string; lead: string; guide?: GoodsGuide };
 export const goodsCategoryList: GoodsCategory[] = Object.entries(goodsCategories).map(([key, c]) => ({
   key: key as GoodsCategoryKey,

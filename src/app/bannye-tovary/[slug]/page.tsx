@@ -51,6 +51,16 @@ export default async function GoodsSlugPage({ params }: Props) {
                 <p key={text}>{text}</p>
               ))}
             </Prose>
+            {category.guide.sections && (
+              <div className="mt-8 grid max-w-4xl gap-5 sm:grid-cols-2">
+                {category.guide.sections.map((part) => (
+                  <div key={part.title} className="rounded-xl border border-border bg-card p-5">
+                    <h3 className="text-lg">{part.title}</h3>
+                    <p className="mt-2 text-sm text-foreground/85">{part.text}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </Section>
         ) : (
           <Notice>Здесь появится короткий гид по выбору от практиков: на что смотреть и чем отличаются варианты.</Notice>
