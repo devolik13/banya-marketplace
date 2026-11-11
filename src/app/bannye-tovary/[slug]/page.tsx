@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cover, DemoBadge, Facts, Illustration, JsonLd, Notice, PageShell, Panel, PromoPanel, Prose, Section, Tags } from "@/components/site/parts";
+import { ContactPanel, Cover, DemoBadge, Facts, Illustration, JsonLd, Notice, PageShell, Panel, PromoPanel, Prose, Section, Tags } from "@/components/site/parts";
 import { SupplierCatalog } from "@/components/site/supplier-catalog";
 import { featuredFirst } from "@/data/promo";
 import { getGoodsCategory, getSupplier, goodsCategories, goodsCategoryList, saleLabel, suppliers } from "@/data/suppliers";
@@ -102,18 +102,12 @@ export default async function GoodsSlugPage({ params }: Props) {
                 ["Продажа", saleLabel(supplier)],
                 ["Город", supplier.city],
                 ["Доставка", supplier.delivery],
+                ...(supplier.wholesale ? ([["Минимальный опт", supplier.minOrder]] as [string, string | null][]) : []),
               ]}
             />
-            {supplier.site && (
-              <a
-                href={supplier.site}
-                rel="noopener"
-                className="mt-5 block rounded-lg bg-primary px-5 py-3 text-center text-sm font-semibold text-primary-foreground hover:bg-primary/90"
-              >
-                Перейти на сайт поставщика
-              </a>
-            )}
+            {supplier.checkedAt && <p className="mt-4 text-xs text-muted-foreground">Данные сверены: {supplier.checkedAt}</p>}
           </Panel>
+          <ContactPanel contacts={supplier.contacts} demo={supplier.demo} siteLabel="Сайт поставщика" />
         </aside>
       </div>
       {!supplier.demo && (
@@ -122,7 +116,8 @@ export default async function GoodsSlugPage({ params }: Props) {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: supplier.name,
-            url: supplier.site ?? absoluteUrl(`/bannye-tovary/${supplier.slug}`),
+            url: supplier.contacts.site ?? absoluteUrl(`/bannye-tovary/${supplier.slug}`),
+            telephone: supplier.contacts.phone ?? undefined,
           }}
         />
       )}

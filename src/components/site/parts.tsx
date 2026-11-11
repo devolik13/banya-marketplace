@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowRight, Bath, Flame, GraduationCap, type LucideIcon, Package, UserRound } from "lucide-react";
+import { ArrowRight, Bath, Check, Flame, Globe, GraduationCap, type LucideIcon, Minus, Package, Phone, Send, UserRound } from "lucide-react";
+import { type ChecklistGroup, type Contacts, hasContacts, type PriceLine, telHref } from "@/data/common";
 import type { Promo } from "@/data/promo";
 import { absoluteUrl, nav, site } from "@/lib/site";
 
@@ -238,9 +239,11 @@ export function CoverCard({
   kind,
   demo = false,
   promo,
+  highlight,
 }: {
   href: string;
   title: string;
+  highlight?: string | null;
   meta?: string | null;
   text?: string | null;
   tags?: string[];
@@ -263,6 +266,7 @@ export function CoverCard({
           <h3 className="text-lg group-hover:text-primary">{title}</h3>
           {meta && <p className="mt-1 text-sm text-muted-foreground">{meta}</p>}
         </div>
+        {highlight && <p className="text-sm font-semibold text-primary">{highlight}</p>}
         {text && <p className="text-sm text-foreground/85">{text}</p>}
         <div className="mt-auto pt-1">
           <Tags items={tags} />
@@ -315,6 +319,113 @@ export function TextCard({
         <ArrowRight className="size-4 transition group-hover:translate-x-1" aria-hidden="true" />
       </span>
     </Link>
+  );
+}
+
+/* ───────── Блоки страницы карточки ───────── */
+
+// Кнопки связи. Если контактов нет, показываем, что они появятся.
+export function ContactPanel({ contacts, demo = false, siteLabel = "Перейти на сайт" }: { contacts: Contacts; demo?: boolean; siteLabel?: string }) {
+  const btn = "flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition";
+  return (
+    <Panel title="Связаться">
+      {hasContacts(contacts) ? (
+        <div className="space-y-2.5">
+          {contacts.phone && (
+            <a href={telHref(contacts.phone)} className={`${btn} bg-primary text-primary-foreground hover:bg-primary/90`}>
+              <Phone className="size-4" aria-hidden="true" />
+              {contacts.phone}
+            </a>
+          )}
+          {contacts.telegram && (
+            <a href={`https://t.me/${contacts.telegram}`} rel="noopener" className={`${btn} border border-border hover:border-primary hover:text-primary`}>
+              <Send className="size-4" aria-hidden="true" />
+              Написать в Telegram
+            </a>
+          )}
+          {contacts.site && (
+            <a href={contacts.site} rel="noopener" className={`${btn} border border-border hover:border-primary hover:text-primary`}>
+              <Globe className="size-4" aria-hidden="true" />
+              {siteLabel}
+            </a>
+          )}
+        </div>
+      ) : (
+        <p className="text-sm text-muted-foreground">
+          {demo ? "Здесь будут кнопки связи: телефон, Telegram и сайт." : "Контакты уточняются."}
+        </p>
+      )}
+    </Panel>
+  );
+}
+
+// Список по группам: отмеченные пункты с галочкой, остальные серым.
+export function Checklist({ groups, selected }: { groups: readonly ChecklistGroup[]; selected: string[] }) {
+  return (
+    <div className="grid gap-6 sm:grid-cols-2">
+      {groups.map((group) => (
+        <Panel key={group.title} title={group.title}>
+          <ul className="space-y-2.5 text-sm">
+            {Object.entries(group.items).map(([key, label]) => {
+              const has = selected.includes(key);
+              return (
+                <li key={key} className={`flex items-start gap-2.5 ${has ? "" : "text-muted-foreground/60"}`}>
+                  {has ? (
+                    <Check className="mt-0.5 size-4 shrink-0 text-primary" strokeWidth={3} aria-hidden="true" />
+                  ) : (
+                    <Minus className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+                  )}
+                  <span>
+                    {label}
+                    <span className="sr-only">{has ? " (есть)" : " (нет)"}</span>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </Panel>
+      ))}
+    </div>
+  );
+}
+
+export function PriceTable({ lines }: { lines: PriceLine[] }) {
+  return (
+    <ul className="max-w-3xl divide-y divide-border rounded-xl border border-border bg-card">
+      {lines.map((line) => (
+        <li key={line.service} className="flex items-baseline justify-between gap-6 px-5 py-3.5">
+          <span>
+            <span className="font-medium">{line.service}</span>
+            {line.note && <span className="block text-sm text-muted-foreground">{line.note}</span>}
+          </span>
+          <span className="shrink-0 font-semibold">{line.price}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// Фотографии. Пока их нет, показываем подсказку, что здесь будет.
+export function Gallery({ images, alt, hint }: { images: string[]; alt: string; hint: string }) {
+  if (images.length === 0) return <Notice>{hint}</Notice>;
+  return (
+    <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      {images.map((src, i) => (
+        <li key={src} className="overflow-hidden rounded-xl">
+          <img src={src} alt={`${alt}, фото ${i + 1}`} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export function BulletList({ items }: { items: string[] }) {
+  return (
+    <ul className="max-w-3xl list-disc space-y-2 pl-5">
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
   );
 }
 

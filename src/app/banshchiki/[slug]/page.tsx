@@ -1,8 +1,25 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Check, Minus, Play } from "lucide-react";
-import { Avatar, DemoBadge, Facts, JsonLd, Notice, PageShell, Panel, PromoPanel, Prose, Section, TextLink } from "@/components/site/parts";
-import { getMaster, masters, scopeLabels, serviceGroups } from "@/data/masters";
+import { BadgeCheck, Play } from "lucide-react";
+import {
+  Avatar,
+  BulletList,
+  Checklist,
+  ContactPanel,
+  DemoBadge,
+  Facts,
+  Gallery,
+  JsonLd,
+  Notice,
+  PageShell,
+  Panel,
+  PriceTable,
+  PromoPanel,
+  Prose,
+  Section,
+  TextLink,
+} from "@/components/site/parts";
+import { formatLabels, getMaster, masters, scopeLabels, serviceGroups } from "@/data/masters";
 import { getVenue } from "@/data/venues";
 import { absoluteUrl } from "@/lib/site";
 
@@ -50,11 +67,19 @@ export default async function MasterPage({ params }: Props) {
                 rows={[
                   ["Город", master.city],
                   ["Стаж", master.experienceYears ? `${master.experienceYears} лет` : null],
-                  ["Стоимость", master.pricePerSession],
+                  ["Формат", master.formats.map((f) => formatLabels[f]).join(", ") || null],
+                  ["Цена", master.priceFrom],
                 ]}
               />
             </div>
+            {master.openToVenues && (
+              <p className="mt-5 flex items-start gap-2 rounded-lg bg-accent/60 px-3 py-2.5 text-sm">
+                <BadgeCheck className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+                Берёт смены и мероприятия в банных комплексах
+              </p>
+            )}
           </Panel>
+          <ContactPanel contacts={master.contacts} demo={master.demo} siteLabel="Сайт мастера" />
           {venue && (
             <Panel title="Где работает">
               <TextLink href={`/bani-na-drovah/${venue.slug}`}>{venue.name}</TextLink>
@@ -71,30 +96,15 @@ export default async function MasterPage({ params }: Props) {
           </Section>
 
           <Section title="Услуги">
-            <div className="grid gap-6 sm:grid-cols-2">
-              {serviceGroups.map((group) => (
-                <Panel key={group.title} title={group.title}>
-                  <ul className="space-y-2.5 text-sm">
-                    {Object.entries(group.items).map(([key, label]) => {
-                      const has = master.services.includes(key);
-                      return (
-                        <li key={key} className={`flex items-start gap-2.5 ${has ? "" : "text-muted-foreground/60"}`}>
-                          {has ? (
-                            <Check className="mt-0.5 size-4 shrink-0 text-primary" strokeWidth={3} aria-hidden="true" />
-                          ) : (
-                            <Minus className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-                          )}
-                          <span>
-                            {label}
-                            <span className="sr-only">{has ? " (делает)" : " (не делает)"}</span>
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </Panel>
-              ))}
-            </div>
+            <Checklist groups={serviceGroups} selected={master.services} />
+          </Section>
+
+          <Section title="Цены">
+            {master.prices.length > 0 ? (
+              <PriceTable lines={master.prices} />
+            ) : (
+              <Notice>Здесь будет прайс мастера: услуга, длительность и цена.</Notice>
+            )}
           </Section>
 
           <Section title="Видео работы">
@@ -112,7 +122,25 @@ export default async function MasterPage({ params }: Props) {
             )}
           </Section>
 
-          {master.demo && <Notice>Это образец анкеты. Настоящие анкеты заполняются по такому же шаблону.</Notice>}
+          <Section title="Фотографии">
+            <Gallery images={master.gallery} alt={master.name} hint="Здесь будут фотографии мастера за работой." />
+          </Section>
+
+          {master.education.length > 0 && (
+            <Section title="Обучение">
+              <BulletList items={master.education} />
+            </Section>
+          )}
+
+          {master.achievements.length > 0 && (
+            <Section title="Достижения">
+              <BulletList items={master.achievements} />
+            </Section>
+          )}
+
+          {master.demo && (
+            <Notice>Это образец анкеты. Цены и записи в нём условные, настоящие анкеты заполняются по такому же шаблону.</Notice>
+          )}
         </div>
       </div>
 
@@ -124,6 +152,7 @@ export default async function MasterPage({ params }: Props) {
             name: master.name,
             jobTitle: master.role,
             url: absoluteUrl(`/banshchiki/${master.slug}`),
+            telephone: master.contacts.phone ?? undefined,
           }}
         />
       )}

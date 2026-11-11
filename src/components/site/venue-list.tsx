@@ -15,6 +15,7 @@ export function VenueList({ items: all }: { items: Venue[] }) {
             href={`/bani-na-drovah/${v.slug}`}
             title={v.name}
             meta={[v.city, v.address].filter(Boolean).join(", ")}
+            highlight={[v.priceFrom, v.capacity].filter(Boolean).join(" · ") || null}
             text={v.summary}
             tags={v.features}
             image={v.image}

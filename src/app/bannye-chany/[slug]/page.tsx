@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ButtonLink, Cover, Facts, Illustration, Notice, PageShell, Panel, PromoPanel, Section } from "@/components/site/parts";
+import { ButtonLink, ContactPanel, Cover, Facts, Illustration, Notice, PageShell, Panel, PromoPanel, Section } from "@/components/site/parts";
 import { getTubBrand, getTubGuide, tubBrands, tubGuides } from "@/data/tubs";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -63,8 +63,22 @@ export default async function TubPage({ params }: Props) {
       <div className="grid gap-10 lg:grid-cols-[1fr_20rem]">
         <div className="space-y-8">
           <Cover src={brand.image} alt={brand.name} kind="tub" className="rounded-xl" />
+          <Panel title="Характеристики">
+            <Facts
+              rows={[
+                ["Материалы", brand.materials.join(", ") || null],
+                ["Размеры", brand.sizes],
+                ["Нагрев", brand.heating.join(", ") || null],
+                ["Срок изготовления", brand.leadTime],
+                ["Доставка", brand.delivery],
+                ["Гарантия", brand.warranty],
+              ]}
+            />
+          </Panel>
           <Notice>
-            Данные о производителе уточняются. На странице будут только проверенные факты с указанием даты.
+            {brand.checkedAt
+              ? `Данные взяты с сайта производителя и сверены: ${brand.checkedAt}.`
+              : "Данные о производителе уточняются. На странице будут только проверенные факты с указанием даты."}
           </Notice>
         </div>
         <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
@@ -74,13 +88,13 @@ export default async function TubPage({ params }: Props) {
               rows={[
                 ["Регион", brand.region],
                 ["Цены", brand.priceFrom],
-                ["Сайт", brand.site],
               ]}
             />
             <div className="mt-5">
               <ButtonLink href="/bannye-chany#zayavka">Оставить заявку</ButtonLink>
             </div>
           </Panel>
+          <ContactPanel contacts={brand.contacts} siteLabel="Сайт производителя" />
         </aside>
       </div>
     </PageShell>

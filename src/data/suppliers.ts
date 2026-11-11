@@ -1,5 +1,6 @@
 // Поставщики банных товаров: веники, текстиль, шапки, травы, посуда.
 // Это каталог компаний, а не магазин: на сайте нет корзины и склада, только карточка и ссылка на поставщика.
+import { type Contacts, noContacts } from "@/data/common";
 import { noPromo, type Promo } from "@/data/promo";
 
 // Порядок категорий идёт по спросу в поиске: веники, шапки, затем килты и халаты.
@@ -98,13 +99,16 @@ export type Supplier = {
   slug: string;
   name: string;
   city: string | null;
-  site: string | null;
   categories: GoodsCategoryKey[];
   retail: boolean;
   wholesale: boolean;
+  // Минимальная партия для опта.
+  minOrder: string | null;
   delivery: string | null;
   image: string | null;
   summary: string;
+  contacts: Contacts;
+  checkedAt: string | null;
   demo: boolean;
 } & Promo;
 
@@ -112,13 +116,15 @@ const sample = (n: number, categories: GoodsCategoryKey[], retail: boolean, whol
   slug: `obrazec-postavshchika-${n}`,
   name: "Название поставщика",
   city: null,
-  site: null,
   categories,
   retail,
   wholesale,
+  minOrder: null,
   delivery: null,
   image: null,
   summary: "Здесь будет описание: что продаёт, откуда товар, с какими объёмами работает.",
+  contacts: noContacts,
+  checkedAt: null,
   demo: true,
   ...noPromo,
 });

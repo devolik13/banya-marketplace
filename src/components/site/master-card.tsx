@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Play } from "lucide-react";
 import { Avatar, DemoBadge, PromoBadges, Tags } from "@/components/site/parts";
-import { type Master, scopeLabels, serviceLabel } from "@/data/masters";
+import { formatLabels, type Master, scopeLabels, serviceLabel } from "@/data/masters";
 
 export function MasterCard({ master }: { master: Master }) {
   return (
@@ -13,18 +13,21 @@ export function MasterCard({ master }: { master: Master }) {
         <Avatar name={master.name} src={master.photo} />
         <div className="min-w-0">
           <h3 className="text-lg group-hover:text-primary">{master.name}</h3>
-          <p className="text-sm text-muted-foreground">{master.role}</p>
+          <p className="text-sm text-muted-foreground">{[master.role, master.city].filter(Boolean).join(", ")}</p>
         </div>
         <span className="ml-auto flex flex-col items-end gap-1.5 self-start">
           {master.demo && <DemoBadge />}
           <PromoBadges item={master} />
         </span>
       </div>
-      <p className="text-sm font-medium text-primary">{scopeLabels[master.scope]}</p>
+      <div>
+        <p className="text-sm font-medium text-primary">{scopeLabels[master.scope]}</p>
+        <p className="mt-1 text-sm text-muted-foreground">{master.formats.map((f) => formatLabels[f]).join(" · ")}</p>
+      </div>
       <Tags items={master.services.slice(0, 4).map(serviceLabel)} />
       <div className="mt-auto flex items-center justify-between border-t border-border pt-4 text-sm">
-        <span className={master.pricePerSession ? "font-semibold" : "italic text-muted-foreground"}>
-          {master.pricePerSession ?? "цена уточняется"}
+        <span className={master.priceFrom ? "font-semibold" : "italic text-muted-foreground"}>
+          {master.priceFrom ?? "цена уточняется"}
         </span>
         {master.videoUrl && (
           <span className="flex items-center gap-1.5 text-muted-foreground">

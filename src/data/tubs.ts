@@ -1,25 +1,45 @@
 // Производители банных чанов. Названия взяты из поисковых запросов, по которым люди ищут чаны.
 // Факты о каждом (город, цены, сайт) не заполнены: их нужно внести с сайтов производителей.
+import { type Contacts, noContacts } from "@/data/common";
 import { noPromo, type Promo } from "@/data/promo";
 
 export type TubBrand = {
   slug: string;
   name: string;
   region: string | null;
-  site: string | null;
   priceFrom: string | null;
+  // Из чего делают: нержавеющая сталь, чёрный металл, композит, дерево.
+  materials: string[];
+  // На сколько человек бывают модели.
+  sizes: string | null;
+  // Способы нагрева: печь под чаном, боковая, выносная.
+  heating: string[];
+  delivery: string | null;
+  warranty: string | null;
+  // Срок изготовления.
+  leadTime: string | null;
   image: string | null;
   summary: string | null;
+  contacts: Contacts;
+  // Дата, когда факты сверяли с сайтом производителя.
+  checkedAt: string | null;
 } & Promo;
 
 const brand = (slug: string, name: string): TubBrand => ({
   slug,
   name,
   region: null,
-  site: null,
   priceFrom: null,
+  materials: [],
+  sizes: null,
+  heating: [],
+  delivery: null,
+  warranty: null,
+  leadTime: null,
   image: null,
   summary: null,
+  contacts: noContacts,
+  checkedAt: null,
   ...noPromo,
 });
 
