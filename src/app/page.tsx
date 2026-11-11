@@ -1,4 +1,4 @@
-import { ArrowRight, Bath, Check, Flame, GraduationCap, ShoppingBag, UserRound } from "lucide-react";
+import { ArrowRight, Bath, Flame, GraduationCap, ShoppingBag, UserRound } from "lucide-react";
 import { ButtonLink, Notice, Section, TextCard, TextLink } from "@/components/site/parts";
 import { site } from "@/lib/site";
 
@@ -73,19 +73,19 @@ export default function HomePage() {
               <ButtonLink href="/banshchiki" variant="outline">Выбрать банщика</ButtonLink>
             </div>
           </div>
-          <ul className="space-y-4 rounded-2xl border border-ink-foreground/10 bg-ink-foreground/5 p-7 backdrop-blur">
-            {criteria.map((c) => (
-              <li key={c.title} className="flex gap-4">
-                <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-gold text-ink">
-                  <Check className="size-4" strokeWidth={3} aria-hidden="true" />
-                </span>
-                <span>
-                  <span className="block font-semibold">{c.title}</span>
-                  <span className="block text-sm text-ink-foreground/65">{c.text}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="relative mx-auto w-full max-w-xs lg:max-w-md">
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(224,164,88,0.28),transparent)]"
+            />
+            <img
+              src="/illustrations/tri-venika.webp"
+              alt="Три банных веника: дубовый, берёзовый и пихтовый"
+              width={903}
+              height={900}
+              className="h-auto w-full drop-shadow-2xl"
+            />
+          </div>
         </div>
       </section>
 
