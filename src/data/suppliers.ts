@@ -7,6 +7,7 @@ import { noPromo, type Promo } from "@/data/promo";
 export const goodsCategories = {
   veniki: {
     slug: "veniki",
+    image: "/illustrations/venik-dubovyy.webp",
     name: "Веники",
     title: "Веники для бани: где купить в розницу и оптом",
     lead: "Поставщики банных веников: дубовые, берёзовые, пихтовые и ароматные из трав. Для себя и для бань, которым нужен опт.",
@@ -17,17 +18,17 @@ export const goodsCategories = {
         "На парение компании от одного до трёх человек обычно уходит два веника, дубовых или берёзовых.",
       ],
       sections: [
-        { title: "Дубовый веник", text: "Самый ходовой: дубовыми вениками парят чаще всего." },
+        { title: "Дубовый веник", image: "/illustrations/venik-dubovyy.webp", text: "Самый ходовой: дубовыми вениками парят чаще всего." },
         {
-          title: "Берёзовый веник",
+          title: "Берёзовый веник", image: "/illustrations/venik-berezovyy.webp",
           text: "На втором месте после дубового. Берёзовым веником иногда накрывают голову.",
         },
         {
-          title: "Пихтовый веник",
+          title: "Пихтовый веник", image: "/illustrations/venik-pihtovyy.webp",
           text: "Нужен для аромата, берут его нечасто. Если берут, то пихтовыми вениками выстилают полок для парения, и на это уходит в среднем от 12 до 20 штук за раз.",
         },
         {
-          title: "Ароматные веники из трав",
+          title: "Ароматные веники из трав", image: "/illustrations/venik-travy.webp",
           text: "Отдельная группа: полынь, донник, мята и другие травы. Ими не парят: их берут ради запаха и заваривают в купели.",
         },
       ],
@@ -35,6 +36,7 @@ export const goodsCategories = {
   },
   shapki: {
     slug: "shapki-i-rukavitsy",
+    image: "/illustrations/shapka.webp",
     name: "Шапки и рукавицы",
     title: "Шапки для бани и рукавицы",
     lead: "Поставщики банных шапок, войлочных и шерстяных, а также рукавиц и ковриков.",
@@ -50,18 +52,21 @@ export const goodsCategories = {
   },
   tekstil: {
     slug: "kilty-i-halaty",
+    image: "/illustrations/kilt.webp",
     name: "Килты и халаты",
     title: "Килты и халаты для бани",
     lead: "Поставщики банных килтов, халатов и другого текстиля. Простыни и полотенца бани обычно закупают оптом у производителей текстиля, такие поставщики отмечены пометкой «опт».",
   },
   travy: {
     slug: "travy-i-masla",
+    image: "/illustrations/travy-i-masla.webp",
     name: "Травы и масла",
     title: "Травы, запарки и масла для бани",
     lead: "Поставщики травяных сборов, запарок, настоек для парения и эфирных масел.",
   },
   posuda: {
     slug: "posuda-i-aksessuary",
+    image: "/illustrations/ushat.webp",
     name: "Посуда и аксессуары",
     title: "Банная посуда и аксессуары",
     lead: "Поставщики ушатов, ковшей, запарников, мочалок и других банных принадлежностей.",
@@ -72,9 +77,17 @@ export type GoodsCategoryKey = keyof typeof goodsCategories;
 export type GoodsGuide = {
   title: string;
   paragraphs: readonly string[];
-  sections?: readonly { title: string; text: string }[];
+  sections?: readonly { title: string; text: string; image?: string }[];
 };
-export type GoodsCategory = { key: GoodsCategoryKey; slug: string; name: string; title: string; lead: string; guide?: GoodsGuide };
+export type GoodsCategory = {
+  key: GoodsCategoryKey;
+  slug: string;
+  image: string;
+  name: string;
+  title: string;
+  lead: string;
+  guide?: GoodsGuide;
+};
 export const goodsCategoryList: GoodsCategory[] = Object.entries(goodsCategories).map(([key, c]) => ({
   key: key as GoodsCategoryKey,
   ...c,

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BookOpen, Hammer, Leaf } from "lucide-react";
-import { CoverCard, Grid, JsonLd, Notice, PageShell, Section, TextCard } from "@/components/site/parts";
+import { CoverCard, Grid, Illustration, JsonLd, Notice, PageShell, Section, TextCard } from "@/components/site/parts";
 import { featuredFirst } from "@/data/promo";
 import { tubBrands, tubGuides, tubQuestions } from "@/data/tubs";
 import { absoluteUrl } from "@/lib/site";
@@ -22,6 +22,7 @@ export default function TubsPage() {
       title="Банные чаны: производители, цены, как выбрать"
       lead="Независимый обзор производителей банных чанов и купелей. Сравнение, цены и советы от тех, кто работает с чанами каждый день."
       crumbs={[{ href: "/bannye-chany", label: "Банные чаны" }]}
+      aside={<Illustration src="/illustrations/chan.webp" alt="" className="hidden size-44 shrink-0 md:block" />}
     >
       <Section title="С чего начать">
         <Grid>

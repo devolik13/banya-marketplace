@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Hand, Shirt, Soup, Sprout, TreeDeciduous } from "lucide-react";
-import { ButtonLink, Notice, PageShell, Section, TextCard } from "@/components/site/parts";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { ButtonLink, Notice, PageShell, Section } from "@/components/site/parts";
 import { SupplierCatalog } from "@/components/site/supplier-catalog";
 import { featuredFirst } from "@/data/promo";
-import { type GoodsCategoryKey, goodsCategoryList, suppliers } from "@/data/suppliers";
+import { goodsCategoryList, suppliers } from "@/data/suppliers";
 
 // Страница обновляется раз в час: так порядок выделенных карточек меняется каждый день сам.
 export const revalidate = 3600;
@@ -14,14 +15,6 @@ export const metadata: Metadata = {
     "Поставщики банных товаров: веники, шапки и рукавицы, килты и халаты, травы и масла, посуда. В розницу и оптом.",
 };
 
-const icons: Record<GoodsCategoryKey, typeof Hand> = {
-  veniki: TreeDeciduous,
-  tekstil: Shirt,
-  shapki: Hand,
-  travy: Sprout,
-  posuda: Soup,
-};
-
 export default function GoodsPage() {
   return (
     <PageShell
@@ -30,9 +23,19 @@ export default function GoodsPage() {
       crumbs={[{ href: "/bannye-tovary", label: "Банные товары" }]}
     >
       <Section title="Категории">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
           {goodsCategoryList.map((c) => (
-            <TextCard key={c.key} href={`/bannye-tovary/${c.slug}`} title={c.name} icon={icons[c.key]} />
+            <Link
+              key={c.key}
+              href={`/bannye-tovary/${c.slug}`}
+              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-white transition duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-lg"
+            >
+              <img src={c.image} alt="" width={720} height={720} loading="lazy" className="aspect-square w-full object-contain p-3" />
+              <span className="flex items-center justify-between gap-2 border-t border-border px-4 py-3 font-semibold group-hover:text-primary">
+                {c.name}
+                <ArrowRight className="size-4 shrink-0 text-primary transition group-hover:translate-x-1" aria-hidden="true" />
+              </span>
+            </Link>
           ))}
         </div>
       </Section>

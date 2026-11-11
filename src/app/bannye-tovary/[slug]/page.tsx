@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cover, DemoBadge, Facts, JsonLd, Notice, PageShell, Panel, PromoPanel, Prose, Section, Tags } from "@/components/site/parts";
+import { Cover, DemoBadge, Facts, Illustration, JsonLd, Notice, PageShell, Panel, PromoPanel, Prose, Section, Tags } from "@/components/site/parts";
 import { SupplierCatalog } from "@/components/site/supplier-catalog";
 import { featuredFirst } from "@/data/promo";
 import { getGoodsCategory, getSupplier, goodsCategories, goodsCategoryList, saleLabel, suppliers } from "@/data/suppliers";
@@ -40,6 +40,7 @@ export default async function GoodsSlugPage({ params }: Props) {
         title={category.title}
         lead={category.lead}
         crumbs={[section, { href: `/bannye-tovary/${category.slug}`, label: category.name }]}
+        aside={<Illustration src={category.image} alt="" className="hidden size-44 shrink-0 md:block" />}
       >
         <Section title="Поставщики">
           <SupplierCatalog suppliers={featuredFirst(items)} />
@@ -54,9 +55,14 @@ export default async function GoodsSlugPage({ params }: Props) {
             {category.guide.sections && (
               <div className="mt-8 grid max-w-4xl gap-5 sm:grid-cols-2">
                 {category.guide.sections.map((part) => (
-                  <div key={part.title} className="rounded-xl border border-border bg-card p-5">
-                    <h3 className="text-lg">{part.title}</h3>
-                    <p className="mt-2 text-sm text-foreground/85">{part.text}</p>
+                  <div key={part.title} className="flex gap-4 rounded-xl border border-border bg-card p-4">
+                    {part.image && (
+                      <img src={part.image} alt="" width={720} height={720} loading="lazy" className="size-24 shrink-0 object-contain" />
+                    )}
+                    <div>
+                      <h3 className="text-lg">{part.title}</h3>
+                      <p className="mt-2 text-sm text-foreground/85">{part.text}</p>
+                    </div>
                   </div>
                 ))}
               </div>
