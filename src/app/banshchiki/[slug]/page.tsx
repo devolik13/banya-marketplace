@@ -13,7 +13,6 @@ import {
   Notice,
   PageShell,
   Panel,
-  PriceTable,
   PromoPanel,
   Prose,
   Section,
@@ -69,6 +68,7 @@ export default async function MasterPage({ params }: Props) {
                   ["Стаж", master.experienceYears ? `${master.experienceYears} лет` : null],
                   ["Формат", master.formats.map((f) => formatLabels[f]).join(", ") || null],
                   ["Цена", master.priceFrom],
+                  ...(master.formats.includes("vyezd") ? ([["Выезд при заказе", master.minVisit]] as [string, string | null][]) : []),
                 ]}
               />
             </div>
@@ -79,7 +79,7 @@ export default async function MasterPage({ params }: Props) {
               </p>
             )}
           </Panel>
-          <ContactPanel contacts={master.contacts} demo={master.demo} siteLabel="Сайт мастера" />
+          <ContactPanel contacts={master.contacts} demo={master.demo} siteLabel="Сайт мастера" requestHref="/zayavka" />
           {venue && (
             <Panel title="Где работает">
               <TextLink href={`/bani-na-drovah/${venue.slug}`}>{venue.name}</TextLink>
@@ -97,14 +97,6 @@ export default async function MasterPage({ params }: Props) {
 
           <Section title="Услуги">
             <Checklist groups={serviceGroups} selected={master.services} />
-          </Section>
-
-          <Section title="Цены">
-            {master.prices.length > 0 ? (
-              <PriceTable lines={master.prices} />
-            ) : (
-              <Notice>Здесь будет прайс мастера: услуга, длительность и цена.</Notice>
-            )}
           </Section>
 
           <Section title="Видео работы">

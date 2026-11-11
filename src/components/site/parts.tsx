@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, Bath, Check, Flame, Globe, GraduationCap, type LucideIcon, Minus, Package, Phone, Send, UserRound } from "lucide-react";
-import { type ChecklistGroup, type Contacts, hasContacts, type PriceLine, telHref } from "@/data/common";
+import { type ChecklistGroup, type Contacts, hasContacts, telHref } from "@/data/common";
 import type { Promo } from "@/data/promo";
 import { absoluteUrl, nav, site } from "@/lib/site";
 
@@ -325,7 +325,18 @@ export function TextCard({
 /* ───────── Блоки страницы карточки ───────── */
 
 // Кнопки связи. Если контактов нет, показываем, что они появятся.
-export function ContactPanel({ contacts, demo = false, siteLabel = "Перейти на сайт" }: { contacts: Contacts; demo?: boolean; siteLabel?: string }) {
+export function ContactPanel({
+  contacts,
+  demo = false,
+  siteLabel = "Перейти на сайт",
+  requestHref,
+}: {
+  contacts: Contacts;
+  demo?: boolean;
+  siteLabel?: string;
+  // Куда ведёт кнопка «Оставить заявку». Показывается, если своих контактов в карточке нет.
+  requestHref?: string;
+}) {
   const btn = "flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition";
   return (
     <Panel title="Связаться">
@@ -350,6 +361,13 @@ export function ContactPanel({ contacts, demo = false, siteLabel = "Перейт
             </a>
           )}
         </div>
+      ) : requestHref ? (
+        <>
+          <Link href={requestHref} className={`${btn} bg-primary text-primary-foreground hover:bg-primary/90`}>
+            Оставить заявку
+          </Link>
+          <p className="mt-3 text-xs text-muted-foreground">Телефон в анкете не указан. Заявку передадим мастеру.</p>
+        </>
       ) : (
         <p className="text-sm text-muted-foreground">
           {demo ? "Здесь будут кнопки связи: телефон, Telegram и сайт." : "Контакты уточняются."}
@@ -386,22 +404,6 @@ export function Checklist({ groups, selected }: { groups: readonly ChecklistGrou
         </Panel>
       ))}
     </div>
-  );
-}
-
-export function PriceTable({ lines }: { lines: PriceLine[] }) {
-  return (
-    <ul className="max-w-3xl divide-y divide-border rounded-xl border border-border bg-card">
-      {lines.map((line) => (
-        <li key={line.service} className="flex items-baseline justify-between gap-6 px-5 py-3.5">
-          <span>
-            <span className="font-medium">{line.service}</span>
-            {line.note && <span className="block text-sm text-muted-foreground">{line.note}</span>}
-          </span>
-          <span className="shrink-0 font-semibold">{line.price}</span>
-        </li>
-      ))}
-    </ul>
   );
 }
 

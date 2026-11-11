@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
-  Checklist,
   ContactPanel,
   Cover,
   DemoBadge,
@@ -16,10 +15,12 @@ import {
 } from "@/components/site/parts";
 import { MasterCard } from "@/components/site/master-card";
 import { masters } from "@/data/masters";
-import { amenityGroups, getVenue, venues } from "@/data/venues";
+import { getVenue, venues } from "@/data/venues";
 import { absoluteUrl } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
+
+const yesNo = (v: boolean | null) => (v === null ? null : v ? "Есть" : "Нет");
 
 export const dynamicParams = false;
 export const generateStaticParams = () => venues.map((v) => ({ slug: v.slug }));
@@ -55,8 +56,18 @@ export default async function VenuePage({ params }: Props) {
             <Cover src={venue.image} alt={venue.name} kind="venue" className="rounded-xl" />
             <Gallery images={venue.gallery} alt={venue.name} hint="Здесь будут фотографии бани: парная, сруб, бассейн, купель." />
           </div>
-          <Section title="Что есть в бане">
-            <Checklist groups={amenityGroups} selected={venue.amenities} />
+          <Section title="Общая информация" lead="Срубы, программы и точные цены смотрите на сайте бани.">
+            <div className="max-w-xl">
+              <Facts
+                rows={[
+                  ["Охраняемая парковка", yesNo(venue.guardedParking)],
+                  ["Комнаты отдыха", venue.restRooms],
+                  ["Бассейн", yesNo(venue.pool)],
+                  ["Ресторан", yesNo(venue.restaurant)],
+                  ["Бар", yesNo(venue.bar)],
+                ]}
+              />
+            </div>
           </Section>
         </div>
         <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">

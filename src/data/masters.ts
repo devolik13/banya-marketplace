@@ -1,5 +1,5 @@
 // Анкеты банщиков. Пока здесь только образцы: настоящие анкеты добавляются по одному шаблону.
-import { type Contacts, noContacts, type PriceLine } from "@/data/common";
+import { type Contacts, noContacts } from "@/data/common";
 import { noPromo, type Promo } from "@/data/promo";
 
 // Пармастер (он же пармейстер) только парит. Банщик это собирательное название:
@@ -58,8 +58,10 @@ export type Master = {
   formats: MasterFormat[];
   // Готов выходить на смены и мероприятия в банные комплексы. Это поле для владельцев бань.
   openToVenues: boolean;
+  // Цена указывается общая, «от». Подробности мастер обсуждает с гостем сам.
   priceFrom: string | null;
-  prices: PriceLine[];
+  // Минимальная сумма заказа, за которую мастер готов выехать.
+  minVisit: string | null;
   venueSlug: string | null;
   photo: string | null;
   gallery: string[];
@@ -88,7 +90,7 @@ const sample = (
   formats,
   openToVenues: false,
   priceFrom: null,
-  prices: [],
+  minVisit: null,
   venueSlug: null,
   photo: null,
   gallery: [],
@@ -110,12 +112,7 @@ export const masters: Master[] = [
   sample(2, "polnyy", ["parenie-klassicheskoe", "aromapar", "pomyvka", "piling", "massazh", "kontrast"], ["v-bane", "vyezd"], {
     openToVenues: true,
     priceFrom: "от 0 000 ₽",
-    prices: [
-      { service: "Классическое парение", price: "0 000 ₽", note: "1 час, 1 гость" },
-      { service: "Аромапар", price: "0 000 ₽", note: "15 минут" },
-      { service: "Веничная помывка", price: "0 000 ₽", note: "15 минут" },
-      { service: "Пилинг", price: "0 000 ₽", note: "15 минут" },
-    ],
+    minVisit: "от 00 000 ₽",
     education: ["Название школы, год выпуска"],
     achievements: ["Участие в чемпионате или фестивале, год"],
   }),
