@@ -102,8 +102,6 @@ export type Supplier = {
   categories: GoodsCategoryKey[];
   retail: boolean;
   wholesale: boolean;
-  // Минимальная партия для опта.
-  minOrder: string | null;
   delivery: string | null;
   image: string | null;
   summary: string;
@@ -119,7 +117,6 @@ const sample = (n: number, categories: GoodsCategoryKey[], retail: boolean, whol
   categories,
   retail,
   wholesale,
-  minOrder: null,
   delivery: null,
   image: null,
   summary: "Здесь будет описание: что продаёт, откуда товар, с какими объёмами работает.",

@@ -8,16 +8,8 @@ export type TubBrand = {
   name: string;
   region: string | null;
   priceFrom: string | null;
-  // Из чего делают: нержавеющая сталь, чёрный металл, композит, дерево.
-  materials: string[];
-  // На сколько человек бывают модели.
-  sizes: string | null;
-  // Способы нагрева: печь под чаном, боковая, выносная.
-  heating: string[];
+  // Общие сведения. Модели, размеры и точные цены гость смотрит на сайте производителя.
   delivery: string | null;
-  warranty: string | null;
-  // Срок изготовления.
-  leadTime: string | null;
   image: string | null;
   summary: string | null;
   contacts: Contacts;
@@ -30,12 +22,7 @@ const brand = (slug: string, name: string): TubBrand => ({
   name,
   region: null,
   priceFrom: null,
-  materials: [],
-  sizes: null,
-  heating: [],
   delivery: null,
-  warranty: null,
-  leadTime: null,
   image: null,
   summary: null,
   contacts: noContacts,

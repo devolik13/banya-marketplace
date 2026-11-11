@@ -63,22 +63,10 @@ export default async function TubPage({ params }: Props) {
       <div className="grid gap-10 lg:grid-cols-[1fr_20rem]">
         <div className="space-y-8">
           <Cover src={brand.image} alt={brand.name} kind="tub" className="rounded-xl" />
-          <Panel title="Характеристики">
-            <Facts
-              rows={[
-                ["Материалы", brand.materials.join(", ") || null],
-                ["Размеры", brand.sizes],
-                ["Нагрев", brand.heating.join(", ") || null],
-                ["Срок изготовления", brand.leadTime],
-                ["Доставка", brand.delivery],
-                ["Гарантия", brand.warranty],
-              ]}
-            />
-          </Panel>
           <Notice>
             {brand.checkedAt
               ? `Данные взяты с сайта производителя и сверены: ${brand.checkedAt}.`
-              : "Данные о производителе уточняются. На странице будут только проверенные факты с указанием даты."}
+              : "Данные о производителе уточняются. Модели, размеры и точные цены смотрите на сайте производителя."}
           </Notice>
         </div>
         <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
@@ -88,6 +76,7 @@ export default async function TubPage({ params }: Props) {
               rows={[
                 ["Регион", brand.region],
                 ["Цены", brand.priceFrom],
+                ["Доставка", brand.delivery],
               ]}
             />
             <div className="mt-5">

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
-  BulletList,
   ContactPanel,
   Cover,
   DemoBadge,
@@ -11,7 +10,6 @@ import {
   PageShell,
   Panel,
   PromoPanel,
-  Section,
 } from "@/components/site/parts";
 import { getSchool, schools } from "@/data/schools";
 import { absoluteUrl } from "@/lib/site";
@@ -48,14 +46,7 @@ export default async function SchoolPage({ params }: Props) {
       <div className="grid gap-10 lg:grid-cols-[1fr_20rem]">
         <div className="space-y-14">
           <Cover src={school.image} alt={school.name} kind="school" className="rounded-xl" />
-          <Section title="Программы">
-            {school.programs.length > 0 ? (
-              <BulletList items={school.programs} />
-            ) : (
-              <Notice>Здесь будет список курсов школы.</Notice>
-            )}
-          </Section>
-          <Notice>Здесь будет презентация школы: преподаватели, как проходит практика, отзывы выпускников.</Notice>
+          <Notice>Программы, расписание и точные цены смотрите на сайте школы.</Notice>
         </div>
         <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
           <PromoPanel item={school} />
@@ -65,9 +56,7 @@ export default async function SchoolPage({ params }: Props) {
                 ["Город", school.city],
                 ["Формат", school.format],
                 ["Длительность", school.duration],
-                ["Практика", school.practice],
                 ["Стоимость", school.price],
-                ["Документ", school.document],
               ]}
             />
             {school.checkedAt && <p className="mt-4 text-xs text-muted-foreground">Данные сверены: {school.checkedAt}</p>}

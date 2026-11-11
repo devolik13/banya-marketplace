@@ -102,7 +102,6 @@ export default async function GoodsSlugPage({ params }: Props) {
                 ["Продажа", saleLabel(supplier)],
                 ["Город", supplier.city],
                 ["Доставка", supplier.delivery],
-                ...(supplier.wholesale ? ([["Минимальный опт", supplier.minOrder]] as [string, string | null][]) : []),
               ]}
             />
             {supplier.checkedAt && <p className="mt-4 text-xs text-muted-foreground">Данные сверены: {supplier.checkedAt}</p>}
