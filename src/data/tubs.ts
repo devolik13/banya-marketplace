@@ -40,6 +40,7 @@ export const getTubBrand = (slug: string) => tubBrands.find((b) => b.slug === sl
 export const tubGuides = [
   {
     slug: "kak-vybrat",
+    image: "/illustrations/chany-vybor.webp",
     title: "Как выбрать банный чан",
     lead: "Сравнение материалов, размеров и способов нагрева. Что важно в работе, а не в рекламе.",
     outline: [
@@ -53,6 +54,7 @@ export const tubGuides = [
   },
   {
     slug: "svoimi-rukami",
+    image: "/illustrations/svoimi-rukami.webp",
     title: "Банный чан своими руками",
     lead: "Что нужно для самостоятельной сборки и во что она обходится по сравнению с готовым чаном.",
     outline: [
@@ -65,6 +67,7 @@ export const tubGuides = [
   },
   {
     slug: "uhod-i-travy",
+    image: "/illustrations/travy-i-masla.webp",
     title: "Уход за чаном и травы для купания",
     lead: "Чем наполняют чан, как его мыть, сливать и готовить к зиме.",
     outline: [

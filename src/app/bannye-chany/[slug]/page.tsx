@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ButtonLink, Cover, Facts, Notice, PageShell, Panel, PromoPanel, Section } from "@/components/site/parts";
+import { ButtonLink, Cover, Facts, Illustration, Notice, PageShell, Panel, PromoPanel, Section } from "@/components/site/parts";
 import { getTubBrand, getTubGuide, tubBrands, tubGuides } from "@/data/tubs";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -35,6 +35,7 @@ export default async function TubPage({ params }: Props) {
         title={guide.title}
         lead={guide.lead}
         crumbs={[section, { href: `/bannye-chany/${guide.slug}`, label: guide.title }]}
+        aside={<Illustration src={guide.image} alt="" className="hidden size-44 shrink-0 md:block" />}
       >
         <Section title="О чём статья">
           <ol className="max-w-3xl divide-y divide-border rounded-xl border border-border bg-card">

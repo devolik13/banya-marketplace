@@ -1,35 +1,35 @@
-import { ArrowRight, Bath, Flame, GraduationCap, ShoppingBag, UserRound } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { ButtonLink, Notice, Section, TextCard, TextLink } from "@/components/site/parts";
 import { site } from "@/lib/site";
 
 const sections = [
   {
     href: "/bani-na-drovah",
-    icon: Flame,
+    image: "/illustrations/banya.webp",
     title: "Бани на дровах",
     text: "Каталог бань с дровяной печью: отдельные срубы, бассейны, купели.",
   },
   {
     href: "/banshchiki",
-    icon: UserRound,
+    image: "/illustrations/banshchik.webp",
     title: "Банщики и пармастера",
     text: "Анкеты мастеров: услуги, стаж, цена, видео работы.",
   },
   {
     href: "/bannye-chany",
-    icon: Bath,
+    image: "/illustrations/chan.webp",
     title: "Банные чаны",
     text: "Производители, цены и советы по выбору от практиков.",
   },
   {
     href: "/bannye-tovary",
-    icon: ShoppingBag,
+    image: "/illustrations/venik-dubovyy.webp",
     title: "Банные товары",
     text: "Поставщики веников, шапок, килтов и трав. Розница и опт.",
   },
   {
     href: "/shkoly-banshchikov",
-    icon: GraduationCap,
+    image: "/illustrations/shkola.webp",
     title: "Школы банщиков",
     text: "Где учат банному мастерству: программы, сроки, стоимость.",
   },
@@ -93,7 +93,7 @@ export default function HomePage() {
         <Section title="Что есть на площадке">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {sections.map((s) => (
-              <TextCard key={s.href} href={s.href} title={s.title} text={s.text} icon={s.icon} />
+              <TextCard key={s.href} href={s.href} title={s.title} text={s.text} image={s.image} />
             ))}
           </div>
         </Section>

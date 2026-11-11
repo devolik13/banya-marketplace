@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ButtonLink, Notice, PageShell, Prose, Section } from "@/components/site/parts";
+import { ButtonLink, Illustration, Notice, PageShell, Prose, Section } from "@/components/site/parts";
 import { MasterCatalog } from "@/components/site/master-catalog";
 import { masters } from "@/data/masters";
 import { featuredFirst } from "@/data/promo";
@@ -19,6 +19,7 @@ export default function MastersPage() {
       title="Банщики и пармастера"
       lead="Анкеты мастеров: услуги, стаж, цена и видео работы. Раздел полезен и гостям, и банным комплексам, которым нужен мастер на смену или на мероприятие."
       crumbs={[{ href: "/banshchiki", label: "Банщики" }]}
+      aside={<Illustration src="/illustrations/banshchik.webp" alt="" className="hidden size-44 shrink-0 md:block" />}
     >
       <Section title="Мастера">
         <div className="mb-6">

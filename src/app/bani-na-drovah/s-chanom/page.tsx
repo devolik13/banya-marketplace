@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageShell } from "@/components/site/parts";
+import { Illustration, PageShell } from "@/components/site/parts";
 import { VenueList } from "@/components/site/venue-list";
 import { venues, venueTags } from "@/data/venues";
 
@@ -19,6 +19,7 @@ export default function VenueTagPage() {
         { href: "/bani-na-drovah", label: "Бани на дровах" },
         { href: `/bani-na-drovah/${tag.slug}`, label: tag.title },
       ]}
+      aside={<Illustration src="/illustrations/banya.webp" alt="" className="hidden size-44 shrink-0 md:block" />}
     >
       <VenueList items={venues.filter((v) => v.tags.includes("kupel"))} />
     </PageShell>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CoverCard, Grid, Notice, PageShell, Section } from "@/components/site/parts";
+import { CoverCard, Grid, Illustration, Notice, PageShell, Section } from "@/components/site/parts";
 import { featuredFirst } from "@/data/promo";
 import { schools } from "@/data/schools";
 
@@ -18,6 +18,7 @@ export default function SchoolsPage() {
       title="Школы банщиков"
       lead="Школы и курсы для будущих банщиков и пармейстеров в одном месте. Программы, сроки и стоимость рядом, чтобы можно было сравнить."
       crumbs={[{ href: "/shkoly-banshchikov", label: "Школы банщиков" }]}
+      aside={<Illustration src="/illustrations/shkola.webp" alt="" className="hidden size-44 shrink-0 md:block" />}
     >
       <Section title="Школы">
         <div className="mb-6">

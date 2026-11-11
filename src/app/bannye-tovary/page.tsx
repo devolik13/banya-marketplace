@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { ButtonLink, Notice, PageShell, Section } from "@/components/site/parts";
+import { ButtonLink, Illustration, Notice, PageShell, Section } from "@/components/site/parts";
 import { SupplierCatalog } from "@/components/site/supplier-catalog";
 import { featuredFirst } from "@/data/promo";
 import { goodsCategoryList, suppliers } from "@/data/suppliers";
@@ -21,6 +21,7 @@ export default function GoodsPage() {
       title="Банные товары: веники, шапки, килты, травы"
       lead="Поставщики банных принадлежностей в одном месте. Для тех, кто покупает для себя, и для бань, которым нужен опт."
       crumbs={[{ href: "/bannye-tovary", label: "Банные товары" }]}
+      aside={<Illustration src="/illustrations/venik-travy.webp" alt="" className="hidden size-44 shrink-0 md:block" />}
     >
       <Section title="Категории">
         <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">

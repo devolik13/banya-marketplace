@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { BookOpen, Hammer, Leaf } from "lucide-react";
 import { CoverCard, Grid, Illustration, JsonLd, Notice, PageShell, Section, TextCard } from "@/components/site/parts";
 import { featuredFirst } from "@/data/promo";
 import { tubBrands, tubGuides, tubQuestions } from "@/data/tubs";
@@ -14,8 +13,6 @@ export const metadata: Metadata = {
     "Производители банных чанов, цены и сравнение. Как выбрать чан, сколько стоит сделать своими руками, как ухаживать.",
 };
 
-const guideIcons = { "kak-vybrat": BookOpen, "svoimi-rukami": Hammer, "uhod-i-travy": Leaf } as const;
-
 export default function TubsPage() {
   return (
     <PageShell
@@ -27,13 +24,7 @@ export default function TubsPage() {
       <Section title="С чего начать">
         <Grid>
           {tubGuides.map((g) => (
-            <TextCard
-              key={g.slug}
-              href={`/bannye-chany/${g.slug}`}
-              title={g.title}
-              text={g.lead}
-              icon={guideIcons[g.slug as keyof typeof guideIcons]}
-            />
+            <TextCard key={g.slug} href={`/bannye-chany/${g.slug}`} title={g.title} text={g.lead} image={g.image} />
           ))}
         </Grid>
       </Section>

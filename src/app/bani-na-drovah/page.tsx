@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageShell, Section } from "@/components/site/parts";
+import { Illustration, PageShell, Section } from "@/components/site/parts";
 import { VenueList } from "@/components/site/venue-list";
 import { venues, venueTags } from "@/data/venues";
 
@@ -19,6 +19,7 @@ export default function VenuesPage() {
       title="Бани на дровах в Москве и Подмосковье"
       lead="Только бани с дровяной печью. Сауны и электрические парные в каталог не входят."
       crumbs={[{ href: "/bani-na-drovah", label: "Бани на дровах" }]}
+      aside={<Illustration src="/illustrations/banya.webp" alt="" className="hidden size-44 shrink-0 md:block" />}
     >
       <Section title="Все бани">
         <ul className="mb-7 flex flex-wrap gap-2">

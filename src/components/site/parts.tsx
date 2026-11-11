@@ -273,7 +273,34 @@ export function CoverCard({
 }
 
 // Простая текстовая карточка: статьи и ссылки на разделы.
-export function TextCard({ href, title, text, icon: Icon }: { href: string; title: string; text?: string; icon?: LucideIcon }) {
+export function TextCard({
+  href,
+  title,
+  text,
+  icon: Icon,
+  image,
+}: {
+  href: string;
+  title: string;
+  text?: string;
+  icon?: LucideIcon;
+  image?: string;
+}) {
+  if (image) {
+    return (
+      <Link href={href} className={`${cardBase} !bg-white`}>
+        <img src={image} alt="" width={720} height={720} loading="lazy" className="aspect-[4/3] w-full object-contain p-3" />
+        <div className="flex flex-1 flex-col border-t border-border bg-card p-5">
+          <h3 className="text-lg group-hover:text-primary">{title}</h3>
+          {text && <p className="mt-2 text-sm text-muted-foreground">{text}</p>}
+          <span className="mt-auto flex items-center gap-1.5 pt-4 text-sm font-semibold text-primary">
+            Открыть
+            <ArrowRight className="size-4 transition group-hover:translate-x-1" aria-hidden="true" />
+          </span>
+        </div>
+      </Link>
+    );
+  }
   return (
     <Link href={href} className={`${cardBase} p-6`}>
       {Icon && (
