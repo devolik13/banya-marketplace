@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowRight, Bath, Flame, GraduationCap, type LucideIcon, UserRound } from "lucide-react";
+import { ArrowRight, Bath, Flame, GraduationCap, type LucideIcon, Package, UserRound } from "lucide-react";
 import type { Promo } from "@/data/promo";
 import { absoluteUrl, nav, site } from "@/lib/site";
 
@@ -147,13 +147,14 @@ export function Prose({ children }: { children: ReactNode }) {
 
 /* ───────── Картинки и заглушки под фото ───────── */
 
-export type CoverKind = "venue" | "tub" | "school" | "guide";
+export type CoverKind = "venue" | "tub" | "school" | "guide" | "goods";
 
 const coverIcons: Record<CoverKind, LucideIcon> = {
   venue: Flame,
   tub: Bath,
   school: GraduationCap,
   guide: Bath,
+  goods: Package,
 };
 
 // Обложка карточки. Пока фото нет, показываем спокойную заглушку той же формы.

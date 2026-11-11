@@ -1,4 +1,4 @@
-import { ArrowRight, Bath, Check, Flame, GraduationCap, UserRound } from "lucide-react";
+import { ArrowRight, Bath, Check, Flame, GraduationCap, ShoppingBag, UserRound } from "lucide-react";
 import { ButtonLink, Notice, Section, TextCard, TextLink } from "@/components/site/parts";
 import { site } from "@/lib/site";
 
@@ -20,6 +20,12 @@ const sections = [
     icon: Bath,
     title: "Банные чаны",
     text: "Производители, цены и советы по выбору от практиков.",
+  },
+  {
+    href: "/bannye-tovary",
+    icon: ShoppingBag,
+    title: "Банные товары",
+    text: "Поставщики веников, халатов, шапок и трав. Розница и опт.",
   },
   {
     href: "/shkoly-banshchikov",
@@ -85,7 +91,7 @@ export default function HomePage() {
 
       <div className="mx-auto max-w-6xl space-y-20 px-4 py-16 sm:px-6 sm:py-20">
         <Section title="Что есть на площадке">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {sections.map((s) => (
               <TextCard key={s.href} href={s.href} title={s.title} text={s.text} icon={s.icon} />
             ))}
@@ -114,8 +120,8 @@ export default function HomePage() {
           <div className="max-w-xl">
             <h2 className="text-2xl sm:text-3xl">Для пармейстеров, бань и производителей</h2>
             <p className="mt-3 text-ink-foreground/70">
-              Размещение в каталоге бесплатное. Анкета мастера, карточка бани, школа или производитель
-              чанов.
+              Размещение в каталоге бесплатное. Анкета мастера, карточка бани, школа, производитель
+              чанов или поставщик товаров.
             </p>
           </div>
           <ButtonLink href="/dobavit" variant="light">

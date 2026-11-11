@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { masters } from "@/data/masters";
 import { schools } from "@/data/schools";
+import { goodsCategoryList, suppliers } from "@/data/suppliers";
 import { tubBrands, tubGuides } from "@/data/tubs";
 import { venues, venueTags } from "@/data/venues";
 import { absoluteUrl } from "@/lib/site";
@@ -17,6 +18,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/bannye-chany",
     ...tubGuides.map((g) => `/bannye-chany/${g.slug}`),
     ...tubBrands.map((b) => `/bannye-chany/${b.slug}`),
+    "/bannye-tovary",
+    ...goodsCategoryList.map((c) => `/bannye-tovary/${c.slug}`),
+    ...suppliers.filter((s) => !s.demo).map((s) => `/bannye-tovary/${s.slug}`),
     "/shkoly-banshchikov",
     ...schools.filter((s) => !s.demo).map((s) => `/shkoly-banshchikov/${s.slug}`),
     "/o-proekte",
