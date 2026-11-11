@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cover, DemoBadge, Facts, JsonLd, Notice, PageShell, Panel, PromoPanel, Section, Tags } from "@/components/site/parts";
+import { Cover, DemoBadge, Facts, JsonLd, Notice, PageShell, Panel, PromoPanel, Prose, Section, Tags } from "@/components/site/parts";
 import { SupplierCatalog } from "@/components/site/supplier-catalog";
 import { featuredFirst } from "@/data/promo";
 import { getGoodsCategory, getSupplier, goodsCategories, goodsCategoryList, saleLabel, suppliers } from "@/data/suppliers";
@@ -44,7 +44,17 @@ export default async function GoodsSlugPage({ params }: Props) {
         <Section title="Поставщики">
           <SupplierCatalog suppliers={featuredFirst(items)} />
         </Section>
-        <Notice>Здесь появится короткий гид по выбору от практиков: на что смотреть и чем отличаются варианты.</Notice>
+        {category.guide ? (
+          <Section title={category.guide.title}>
+            <Prose>
+              {category.guide.paragraphs.map((text) => (
+                <p key={text}>{text}</p>
+              ))}
+            </Prose>
+          </Section>
+        ) : (
+          <Notice>Здесь появится короткий гид по выбору от практиков: на что смотреть и чем отличаются варианты.</Notice>
+        )}
       </PageShell>
     );
   }

@@ -15,7 +15,16 @@ export const goodsCategories = {
     slug: "shapki-i-rukavitsy",
     name: "Шапки и рукавицы",
     title: "Шапки для бани и рукавицы",
-    lead: "Поставщики банных шапок, рукавиц и ковриков.",
+    lead: "Поставщики банных шапок, войлочных и шерстяных, а также рукавиц и ковриков.",
+    // Короткий гид со слов практика. Показывается на странице категории.
+    guide: {
+      title: "Войлочная или шерстяная",
+      paragraphs: [
+        "Банная шапка изнашивается быстрее, чем килт или халат, поэтому покупают шапки чаще.",
+        "Войлочные шапки недорогие и служат недолго. В некоторых банях их выдают гостям как одноразовые.",
+        "Шерстяные шапки дороже, но личная шапка может служить годами.",
+      ],
+    },
   },
   tekstil: {
     slug: "kilty-i-halaty",
@@ -38,7 +47,12 @@ export const goodsCategories = {
 } as const;
 
 export type GoodsCategoryKey = keyof typeof goodsCategories;
-export const goodsCategoryList = Object.entries(goodsCategories).map(([key, c]) => ({ key: key as GoodsCategoryKey, ...c }));
+export type GoodsGuide = { title: string; paragraphs: readonly string[] };
+export type GoodsCategory = { key: GoodsCategoryKey; slug: string; name: string; title: string; lead: string; guide?: GoodsGuide };
+export const goodsCategoryList: GoodsCategory[] = Object.entries(goodsCategories).map(([key, c]) => ({
+  key: key as GoodsCategoryKey,
+  ...c,
+}));
 export const getGoodsCategory = (slug: string) => goodsCategoryList.find((c) => c.slug === slug);
 
 export type Supplier = {
