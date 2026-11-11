@@ -1,6 +1,6 @@
 // Общие настройки сайта. Название меняется здесь, в одном месте.
 export const site = {
-  name: "Банная площадка",
+  name: "Три веника",
   shortDescription: "Бани на дровах, банщики, банные чаны, товары и школы банного мастерства",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://banya-platform.vercel.app",
   // Пока сайт тестовый, поисковикам он закрыт. Перед запуском задать NEXT_PUBLIC_SITE_INDEXABLE=true.
