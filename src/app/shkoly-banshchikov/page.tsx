@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CoverCard, Grid, Notice, PageShell, Section } from "@/components/site/parts";
+import { featuredFirst } from "@/data/promo";
 import { schools } from "@/data/schools";
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function SchoolsPage() {
           <Notice>Пока здесь образцы карточек. Школы добавляются после согласования с ними.</Notice>
         </div>
         <Grid>
-          {schools.map((s) => (
+          {featuredFirst(schools).map((s) => (
             <CoverCard
               key={s.slug}
               href={`/shkoly-banshchikov/${s.slug}`}
@@ -30,6 +31,7 @@ export default function SchoolsPage() {
               image={s.image}
               kind="school"
               demo={s.demo}
+              promo={s}
             />
           ))}
         </Grid>

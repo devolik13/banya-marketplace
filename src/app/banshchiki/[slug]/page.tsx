@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Check, Minus, Play } from "lucide-react";
-import { Avatar, DemoBadge, Facts, JsonLd, Notice, PageShell, Panel, Prose, Section, TextLink } from "@/components/site/parts";
+import { Avatar, DemoBadge, Facts, JsonLd, Notice, PageShell, Panel, PromoPanel, Prose, Section, TextLink } from "@/components/site/parts";
 import { getMaster, masters, scopeLabels, serviceGroups } from "@/data/masters";
 import { getVenue } from "@/data/venues";
 import { absoluteUrl } from "@/lib/site";
@@ -38,6 +38,7 @@ export default async function MasterPage({ params }: Props) {
     >
       <div className="grid gap-10 lg:grid-cols-[20rem_1fr]">
         <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <PromoPanel item={master} />
           <Panel>
             <div className="flex flex-col items-center text-center">
               <Avatar name={master.name} src={master.photo} size="lg" />

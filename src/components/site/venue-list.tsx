@@ -1,8 +1,10 @@
 import { CoverCard, Grid, JsonLd } from "@/components/site/parts";
+import { featuredFirst } from "@/data/promo";
 import type { Venue } from "@/data/venues";
 import { absoluteUrl } from "@/lib/site";
 
-export function VenueList({ items }: { items: Venue[] }) {
+export function VenueList({ items: all }: { items: Venue[] }) {
+  const items = featuredFirst(all);
   const real = items.filter((v) => !v.demo);
   return (
     <>
@@ -18,6 +20,7 @@ export function VenueList({ items }: { items: Venue[] }) {
             image={v.image}
             kind="venue"
             demo={v.demo}
+            promo={v}
           />
         ))}
       </Grid>

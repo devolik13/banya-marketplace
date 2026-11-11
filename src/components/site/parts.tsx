@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, Bath, Flame, GraduationCap, type LucideIcon, UserRound } from "lucide-react";
+import type { Promo } from "@/data/promo";
 import { absoluteUrl, nav, site } from "@/lib/site";
 
 /* ───────── Шапка и подвал ───────── */
@@ -218,6 +219,7 @@ export function CoverCard({
   image,
   kind,
   demo = false,
+  promo,
 }: {
   href: string;
   title: string;
@@ -227,16 +229,16 @@ export function CoverCard({
   image?: string | null;
   kind: CoverKind;
   demo?: boolean;
+  promo?: Pick<Promo, "featured" | "partner">;
 }) {
   return (
-    <Link href={href} className={cardBase}>
+    <Link href={href} className={`${cardBase} ${promo?.featured ? "border-primary/60" : ""}`}>
       <div className="relative">
         <Cover src={image} alt={title} kind={kind} />
-        {demo && (
-          <span className="absolute left-3 top-3">
-            <DemoBadge />
-          </span>
-        )}
+        <span className="absolute left-3 top-3 flex flex-wrap gap-1.5">
+          {demo && <DemoBadge />}
+          {promo && <PromoBadges item={promo} />}
+        </span>
       </div>
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div>
@@ -276,6 +278,44 @@ export function TextCard({ href, title, text, icon: Icon }: { href: string; titl
 export function DemoBadge() {
   return (
     <span className="rounded-full bg-gold px-2.5 py-0.5 text-xs font-semibold text-ink">образец</span>
+  );
+}
+
+// Пометки платного размещения. Появляются только у карточек, где они включены.
+export function PromoBadges({ item }: { item: Pick<Promo, "featured" | "partner"> }) {
+  return (
+    <>
+      {item.featured && (
+        <span className="rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-primary-foreground">
+          Выделено
+        </span>
+      )}
+      {item.partner && (
+        <span className="rounded-full border border-primary/50 bg-card px-2.5 py-0.5 text-xs font-semibold text-primary">
+          Партнёр
+        </span>
+      )}
+    </>
+  );
+}
+
+// Блок на странице карточки: кодовое слово, признание о партнёрстве, маркировка рекламы.
+export function PromoPanel({ item }: { item: Promo }) {
+  if (!item.promoCode && !item.partner && !item.adMark) return null;
+  return (
+    <div className="space-y-4 rounded-xl border border-primary/40 bg-accent/50 p-6 text-sm">
+      {item.promoCode && (
+        <div>
+          <p className="text-muted-foreground">Скидка по кодовому слову</p>
+          <p className="mt-1 text-2xl font-bold tracking-wide text-primary">{item.promoCode}</p>
+          <p className="mt-1 text-muted-foreground">Назовите его при обращении.</p>
+        </div>
+      )}
+      {item.partner && (
+        <p>Площадка получает вознаграждение от этой компании. На оценки и отзывы это не влияет.</p>
+      )}
+      {item.adMark && <p className="text-xs text-muted-foreground">{item.adMark}</p>}
+    </div>
   );
 }
 

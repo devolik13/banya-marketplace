@@ -1,4 +1,6 @@
 // Бани на дровах. Запись с demo: true это образец карточки, а не настоящее заведение.
+import { noPromo, type Promo } from "@/data/promo";
+
 export type VenueTag = "kupel" | "basseyn";
 
 export type Venue = {
@@ -14,7 +16,7 @@ export type Venue = {
   features: string[];
   tags: VenueTag[];
   demo: boolean;
-};
+} & Promo;
 
 export const venueTags: Record<VenueTag, { slug: string; short: string; title: string; lead: string }> = {
   kupel: {
@@ -45,6 +47,7 @@ export const venues: Venue[] = [
     features: ["Отдельные срубы", "Бассейн", "Купели", "Пармастера", "Кухня"],
     tags: ["kupel", "basseyn"],
     demo: false,
+    ...noPromo,
   },
   {
     slug: "obrazec-kartochki-1",
@@ -59,6 +62,7 @@ export const venues: Venue[] = [
     features: ["Печь на дровах", "Купель"],
     tags: ["kupel"],
     demo: true,
+    ...noPromo,
   },
   {
     slug: "obrazec-kartochki-2",
@@ -73,6 +77,7 @@ export const venues: Venue[] = [
     features: ["Печь на дровах", "Бассейн"],
     tags: ["basseyn"],
     demo: true,
+    ...noPromo,
   },
 ];
 

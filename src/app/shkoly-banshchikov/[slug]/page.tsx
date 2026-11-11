@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cover, DemoBadge, Facts, JsonLd, Notice, PageShell, Panel } from "@/components/site/parts";
+import { Cover, DemoBadge, Facts, JsonLd, Notice, PageShell, Panel, PromoPanel } from "@/components/site/parts";
 import { getSchool, schools } from "@/data/schools";
 import { absoluteUrl } from "@/lib/site";
 
@@ -38,7 +38,8 @@ export default async function SchoolPage({ params }: Props) {
           <Cover src={school.image} alt={school.name} kind="school" className="rounded-xl" />
           <Notice>Здесь будет презентация школы: программа, преподаватели, как проходит практика.</Notice>
         </div>
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+        <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <PromoPanel item={school} />
           <Panel title="Основное">
             <Facts
               rows={[

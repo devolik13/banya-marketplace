@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Play } from "lucide-react";
-import { Avatar, DemoBadge, Tags } from "@/components/site/parts";
+import { Avatar, DemoBadge, PromoBadges, Tags } from "@/components/site/parts";
 import { type Master, scopeLabels, serviceLabel } from "@/data/masters";
 
 export function MasterCard({ master }: { master: Master }) {
   return (
     <Link
       href={`/banshchiki/${master.slug}`}
-      className="group flex flex-col gap-4 rounded-xl border border-border bg-card p-5 transition duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-lg"
+      className={`group flex flex-col gap-4 rounded-xl border bg-card p-5 transition duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-lg ${master.featured ? "border-primary/60" : "border-border"}`}
     >
       <div className="flex items-center gap-4">
         <Avatar name={master.name} src={master.photo} />
@@ -15,11 +15,10 @@ export function MasterCard({ master }: { master: Master }) {
           <h3 className="text-lg group-hover:text-primary">{master.name}</h3>
           <p className="text-sm text-muted-foreground">{master.role}</p>
         </div>
-        {master.demo && (
-          <span className="ml-auto self-start">
-            <DemoBadge />
-          </span>
-        )}
+        <span className="ml-auto flex flex-col items-end gap-1.5 self-start">
+          {master.demo && <DemoBadge />}
+          <PromoBadges item={master} />
+        </span>
       </div>
       <p className="text-sm font-medium text-primary">{scopeLabels[master.scope]}</p>
       <Tags items={master.services.slice(0, 4).map(serviceLabel)} />

@@ -1,5 +1,7 @@
 // Производители банных чанов. Названия взяты из поисковых запросов, по которым люди ищут чаны.
 // Факты о каждом (город, цены, сайт) не заполнены: их нужно внести с сайтов производителей.
+import { noPromo, type Promo } from "@/data/promo";
+
 export type TubBrand = {
   slug: string;
   name: string;
@@ -8,7 +10,7 @@ export type TubBrand = {
   priceFrom: string | null;
   image: string | null;
   summary: string | null;
-};
+} & Promo;
 
 const brand = (slug: string, name: string): TubBrand => ({
   slug,
@@ -18,6 +20,7 @@ const brand = (slug: string, name: string): TubBrand => ({
   priceFrom: null,
   image: null,
   summary: null,
+  ...noPromo,
 });
 
 export const tubBrands: TubBrand[] = [

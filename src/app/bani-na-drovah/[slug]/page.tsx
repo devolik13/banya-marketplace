@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cover, DemoBadge, Facts, Grid, JsonLd, Notice, PageShell, Panel, Section, Tags } from "@/components/site/parts";
+import { Cover, DemoBadge, Facts, Grid, JsonLd, Notice, PageShell, Panel, PromoPanel, Section, Tags } from "@/components/site/parts";
 import { MasterCard } from "@/components/site/master-card";
 import { masters } from "@/data/masters";
 import { getVenue, venues } from "@/data/venues";
@@ -45,7 +45,8 @@ export default async function VenuePage({ params }: Props) {
             <Tags items={venue.features} />
           </div>
         </div>
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+        <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <PromoPanel item={venue} />
           <Panel title="Основное">
             <Facts
               rows={[

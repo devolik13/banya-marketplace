@@ -1,4 +1,5 @@
 // Анкеты банщиков. Пока здесь только образцы: настоящие анкеты добавляются по одному шаблону.
+import { noPromo, type Promo } from "@/data/promo";
 
 // Пармастер (он же пармейстер) только парит. Банщик это собирательное название:
 // он и парит, и делает помывки, пилинги, массаж.
@@ -51,7 +52,7 @@ export type Master = {
   videoUrl: string | null;
   about: string;
   demo: boolean;
-};
+} & Promo;
 
 const sample = (n: number, scope: MasterScope, services: string[]): Master => ({
   slug: `obrazec-ankety-${n}`,
@@ -67,6 +68,7 @@ const sample = (n: number, scope: MasterScope, services: string[]): Master => ({
   videoUrl: null,
   about: "Здесь мастер рассказывает о себе: где учился, как парит, с кем работает.",
   demo: true,
+  ...noPromo,
 });
 
 export const masters: Master[] = [

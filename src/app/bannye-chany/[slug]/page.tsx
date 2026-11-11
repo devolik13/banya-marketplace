@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ButtonLink, Cover, Facts, Notice, PageShell, Panel, Section } from "@/components/site/parts";
+import { ButtonLink, Cover, Facts, Notice, PageShell, Panel, PromoPanel, Section } from "@/components/site/parts";
 import { getTubBrand, getTubGuide, tubBrands, tubGuides } from "@/data/tubs";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -66,7 +66,8 @@ export default async function TubPage({ params }: Props) {
             Данные о производителе уточняются. На странице будут только проверенные факты с указанием даты.
           </Notice>
         </div>
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+        <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <PromoPanel item={brand} />
           <Panel title="Основное">
             <Facts
               rows={[

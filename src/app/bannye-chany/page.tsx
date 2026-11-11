@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BookOpen, Hammer, Leaf } from "lucide-react";
 import { CoverCard, Grid, JsonLd, Notice, PageShell, Section, TextCard } from "@/components/site/parts";
+import { featuredFirst } from "@/data/promo";
 import { tubBrands, tubGuides, tubQuestions } from "@/data/tubs";
 import { absoluteUrl } from "@/lib/site";
 
@@ -33,9 +34,9 @@ export default function TubsPage() {
         </Grid>
       </Section>
 
-      <Section title="Производители" lead="Список составлен по названиям, которые люди чаще всего ищут. Порядок не означает оценку.">
+      <Section title="Производители" lead="Список составлен по названиям, которые люди чаще всего ищут. Порядок не означает оценку. Платное размещение, если оно есть, отмечено пометкой.">
         <Grid>
-          {tubBrands.map((b) => (
+          {featuredFirst(tubBrands).map((b) => (
             <CoverCard
               key={b.slug}
               href={`/bannye-chany/${b.slug}`}
@@ -44,6 +45,7 @@ export default function TubsPage() {
               text={b.summary}
               image={b.image}
               kind="tub"
+              promo={b}
             />
           ))}
         </Grid>

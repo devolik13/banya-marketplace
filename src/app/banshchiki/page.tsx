@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ButtonLink, Notice, PageShell, Prose, Section } from "@/components/site/parts";
 import { MasterCatalog } from "@/components/site/master-catalog";
 import { masters } from "@/data/masters";
+import { featuredFirst } from "@/data/promo";
 
 export const metadata: Metadata = {
   title: "Банщики и пармастера: анкеты с ценами и видео",
@@ -20,7 +21,7 @@ export default function MastersPage() {
         <div className="mb-6">
           <Notice>Пока здесь образцы анкет. Настоящие анкеты появятся первыми при наполнении сайта.</Notice>
         </div>
-        <MasterCatalog masters={masters} />
+        <MasterCatalog masters={featuredFirst(masters)} />
       </Section>
 
       <Section title="Чем банщик отличается от пармастера">
