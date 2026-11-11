@@ -4,6 +4,32 @@ import { ArrowRight, Bath, Flame, GraduationCap, type LucideIcon, Package, UserR
 import type { Promo } from "@/data/promo";
 import { absoluteUrl, nav, site } from "@/lib/site";
 
+/* ───────── Логотип ───────── */
+
+// Знак «Три веника»: три банных веника рядом. Тот же рисунок лежит в src/app/icon.svg как значок сайта.
+export function Logo({ className = "size-9" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} role="img" aria-label={site.name}>
+      <rect width="48" height="48" rx="11" fill="#1c1410" />
+      <g stroke="#e0a458" strokeWidth="2.6" strokeLinecap="round">
+        <line x1="14.5" y1="33" x2="16.5" y2="41" />
+        <line x1="24" y1="33" x2="24" y2="42" />
+        <line x1="33.5" y1="33" x2="31.5" y2="41" />
+      </g>
+      <g fill="#e0a458">
+        <path transform="rotate(-14 15 34)" d="M15 34 C10.2 28 10.2 16 15 8 C19.8 16 19.8 28 15 34Z" />
+        <path d="M24 35 C18.8 28.5 18.8 14.5 24 6 C29.2 14.5 29.2 28.5 24 35Z" fill="#f0bd75" />
+        <path transform="rotate(14 33 34)" d="M33 34 C28.2 28 28.2 16 33 8 C37.8 16 37.8 28 33 34Z" />
+      </g>
+      <g stroke="#1c1410" strokeWidth="1.6" strokeLinecap="round">
+        <line x1="12.4" y1="32.2" x2="17.2" y2="31" />
+        <line x1="21.4" y1="33" x2="26.6" y2="33" />
+        <line x1="30.8" y1="31" x2="35.6" y2="32.2" />
+      </g>
+    </svg>
+  );
+}
+
 /* ───────── Шапка и подвал ───────── */
 
 export function Header() {
@@ -11,9 +37,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-2 px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5 text-lg font-bold text-foreground">
-          <span className="grid size-9 place-items-center rounded-lg bg-ink text-gold">
-            <Flame className="size-5" aria-hidden="true" />
-          </span>
+          <Logo />
           {site.name}
         </Link>
         <nav aria-label="Разделы сайта" className="flex flex-wrap gap-x-6 gap-y-1 text-sm font-medium sm:ml-auto">
@@ -39,7 +63,10 @@ export function Footer() {
     <footer className="mt-24 bg-ink text-ink-foreground">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 text-sm sm:grid-cols-3 sm:px-6">
         <div>
-          <p className="text-base font-bold">{site.name}</p>
+          <p className="flex items-center gap-2.5 text-base font-bold">
+            <Logo className="size-8" />
+            {site.name}
+          </p>
           <p className="mt-3 max-w-xs text-ink-foreground/65">{site.shortDescription}.</p>
         </div>
         <nav aria-label="Разделы" className="flex flex-col gap-2.5">
