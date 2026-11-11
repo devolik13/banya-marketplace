@@ -5,6 +5,9 @@ import { featuredFirst } from "@/data/promo";
 import { tubBrands, tubGuides, tubQuestions } from "@/data/tubs";
 import { absoluteUrl } from "@/lib/site";
 
+// Страница обновляется раз в час: так порядок выделенных карточек меняется каждый день сам.
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Банные чаны: производители, цены, как выбрать",
   description:

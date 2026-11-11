@@ -4,6 +4,9 @@ import { PageShell, Section } from "@/components/site/parts";
 import { VenueList } from "@/components/site/venue-list";
 import { venues, venueTags } from "@/data/venues";
 
+// Страница обновляется раз в час: так порядок выделенных карточек меняется каждый день сам.
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Бани на дровах в Москве и Подмосковье",
   description:

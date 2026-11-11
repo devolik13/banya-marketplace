@@ -5,6 +5,9 @@ import { venues, venueTags } from "@/data/venues";
 
 const tag = venueTags["basseyn"];
 
+// Страница обновляется раз в час: так порядок выделенных карточек меняется каждый день сам.
+export const revalidate = 3600;
+
 export const metadata: Metadata = { title: tag.title, description: tag.lead };
 
 export default function VenueTagPage() {

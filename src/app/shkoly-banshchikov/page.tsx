@@ -3,6 +3,9 @@ import { CoverCard, Grid, Notice, PageShell, Section } from "@/components/site/p
 import { featuredFirst } from "@/data/promo";
 import { schools } from "@/data/schools";
 
+// Страница обновляется раз в час: так порядок выделенных карточек меняется каждый день сам.
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Школы банщиков: обучение банному мастерству",
   description:

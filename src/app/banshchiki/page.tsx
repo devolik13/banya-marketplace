@@ -4,6 +4,9 @@ import { MasterCatalog } from "@/components/site/master-catalog";
 import { masters } from "@/data/masters";
 import { featuredFirst } from "@/data/promo";
 
+// Страница обновляется раз в час: так порядок выделенных карточек меняется каждый день сам.
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Банщики и пармастера: анкеты с ценами и видео",
   description:
