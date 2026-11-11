@@ -1,6 +1,7 @@
 // Анкеты банщиков. Пока здесь только образцы: настоящие анкеты добавляются по одному шаблону.
 
-// Пармастер (он же пармейстер) только парит. Банщик делает весь набор банных процедур.
+// Пармастер (он же пармейстер) только парит. Банщик это собирательное название:
+// он и парит, и делает помывки, пилинги, массаж.
 // Топить печь и убирать баню обычно не работа ни того, ни другого: этим занят персонал бани.
 export type MasterScope = "parenie" | "polnyy";
 
@@ -26,6 +27,7 @@ export const serviceGroups = [
     items: {
       pomyvka: "Помывка: веничная, лыковая",
       piling: "Пилинг и скраб",
+      massazh: "Массаж",
       kontrast: "Контрастные процедуры и обливания",
       kupeli: "Травяные купели",
     },
@@ -67,7 +69,7 @@ const sample = (n: number, scope: MasterScope, services: string[]): Master => ({
 
 export const masters: Master[] = [
   sample(1, "parenie", ["parenie-klassicheskoe", "parenie-v-4-ruki", "parenie-avtorskoe"]),
-  sample(2, "polnyy", ["parenie-klassicheskoe", "aromapar", "pomyvka", "piling", "kontrast"]),
+  sample(2, "polnyy", ["parenie-klassicheskoe", "aromapar", "pomyvka", "piling", "massazh", "kontrast"]),
   sample(3, "polnyy", ["parenie-klassicheskoe", "parenie-avtorskoe", "pomyvka", "piling", "kupeli"]),
 ];
 
